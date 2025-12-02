@@ -1,6 +1,9 @@
+CHANGELOG.md
 LICENSE
+MANIFEST.in
 README.md
 pyproject.toml
+setup.py
 lightweight_charts_pro_backend/__init__.py
 lightweight_charts_pro_backend/app.py
 lightweight_charts_pro_backend.egg-info/PKG-INFO
