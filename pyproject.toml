@@ -37,7 +37,7 @@ dependencies = [
     "pydantic>=2.0.0",
     "pandas>=2.0.0",
     "numpy>=1.24.0",
-    "lightweight-charts-core>=0.1.0",
+    "lightweight-charts-core @ file:///Users/nandkapadia/lightweight-charts-pro-python",
 ]
 
 [project.optional-dependencies]
