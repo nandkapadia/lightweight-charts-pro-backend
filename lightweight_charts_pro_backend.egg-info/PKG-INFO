@@ -1,3 +1,38 @@
+Metadata-Version: 2.4
+Name: lightweight-charts-pro-backend
+Version: 0.1.0
+Summary: FastAPI backend for TradingView Lightweight Charts Pro
+Author: Streamlit Lightweight Charts Contributors
+License: MIT
+Project-URL: Homepage, https://github.com/nandkapadia/streamlit-lightweight-charts-pro
+Project-URL: Documentation, https://github.com/nandkapadia/streamlit-lightweight-charts-pro#readme
+Project-URL: Repository, https://github.com/nandkapadia/streamlit-lightweight-charts-pro.git
+Keywords: lightweight-charts,tradingview,charts,fastapi,websocket,backend
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Framework :: FastAPI
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fastapi>=0.111.0
+Requires-Dist: uvicorn[standard]>=0.30.0
+Requires-Dist: websockets>=12.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: lightweight-charts-pro@ file:///Users/nandkapadia/lightweight-charts-pro-python
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.23.0; extra == "dev"
+Requires-Dist: httpx>=0.27.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Dynamic: license-file
+
 # Lightweight Charts Pro - Backend API
 
 Framework-agnostic FastAPI backend for TradingView Lightweight Charts Pro.

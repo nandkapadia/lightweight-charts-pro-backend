@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Optional
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
 if TYPE_CHECKING:
-    from lightweight_charts_backend.services import DatafeedService
+    from lightweight_charts_pro_backend.services import DatafeedService
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

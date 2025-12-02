@@ -5,9 +5,9 @@ from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from lightweight_charts_backend.api import chart_router
-from lightweight_charts_backend.services import DatafeedService
-from lightweight_charts_backend.websocket import websocket_router
+from lightweight_charts_pro_backend.api import chart_router
+from lightweight_charts_pro_backend.services import DatafeedService
+from lightweight_charts_pro_backend.websocket import websocket_router
 
 
 def create_app(

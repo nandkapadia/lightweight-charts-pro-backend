@@ -5,8 +5,8 @@ from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Request
 
-from lightweight_charts_backend.models import GetHistoryRequest, SetSeriesDataRequest
-from lightweight_charts_backend.services import DatafeedService
+from lightweight_charts_pro_backend.models import GetHistoryRequest, SetSeriesDataRequest
+from lightweight_charts_pro_backend.services import DatafeedService
 
 router = APIRouter()
 

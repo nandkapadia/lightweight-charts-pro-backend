@@ -2,7 +2,7 @@
 
 import pytest
 from fastapi.testclient import TestClient
-from lightweight_charts_backend.app import create_app
+from lightweight_charts_pro_backend.app import create_app
 
 
 @pytest.fixture

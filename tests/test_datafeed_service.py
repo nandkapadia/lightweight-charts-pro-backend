@@ -1,7 +1,7 @@
 """Tests for DatafeedService."""
 
 import pytest
-from lightweight_charts_backend.services.datafeed import (
+from lightweight_charts_pro_backend.services.datafeed import (
     ChartState,
     DatafeedService,
     SeriesData,
