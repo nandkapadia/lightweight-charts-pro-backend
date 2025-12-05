@@ -1,41 +1,79 @@
-"""Chart API endpoints for data management."""
+"""Chart API endpoints for data management.
 
+This module provides REST API endpoints for managing chart data with the
+TradingView Lightweight Charts backend. It includes endpoints for creating
+charts, setting series data, and retrieving historical data with support
+for infinite history loading through smart chunking.
+
+All endpoints include comprehensive validation to prevent common security
+issues like path traversal, injection attacks, and resource exhaustion.
+"""
+
+# Standard Imports
 import re
 from typing import Any
 
+# Third Party Imports
 from fastapi import APIRouter, Depends, HTTPException, Path, Request
 
+# Local Imports
 from lightweight_charts_pro_backend.models import GetHistoryRequest, SetSeriesDataRequest
 from lightweight_charts_pro_backend.services import DatafeedService
 
+# Create the FastAPI router that will be registered in the main app
 router = APIRouter()
 
-# Validation constants
-MAX_ID_LENGTH = 128
-ID_PATTERN = re.compile(r"^[a-zA-Z0-9_\-\.]+$")
+# Validation constants to prevent security issues and resource exhaustion
+MAX_ID_LENGTH = 128  # Prevent excessively long identifiers that could cause memory issues
+ID_PATTERN = re.compile(r"^[a-zA-Z0-9_\-\.]+$")  # Only allow safe characters in identifiers
 
 
 def validate_identifier(value: str, field_name: str) -> str:
-    """Validate an identifier (chart_id, series_id).
+    r"""Validate an identifier (chart_id, series_id) for security and correctness.
+
+    This function performs comprehensive validation to prevent security
+    vulnerabilities like path traversal attacks and resource exhaustion
+    from maliciously crafted identifiers.
 
     Args:
-        value: The identifier to validate.
-        field_name: Name of the field for error messages.
+        value: The identifier string to validate.
+        field_name: Name of the field being validated, used in error messages
+            to provide clear feedback to API users.
 
     Returns:
-        The validated identifier.
+        str: The validated identifier, unchanged if validation passes.
 
     Raises:
-        HTTPException: If validation fails.
+        HTTPException: With 400 status code if validation fails, including:
+            - Empty identifier
+            - Identifier too long (>128 chars)
+            - Invalid characters (only alphanumeric, _, -, . allowed)
+            - Path traversal attempts (.. or starting with / or \)
+
+    Example:
+        >>> validate_identifier("my_chart_123", "chart_id")
+        "my_chart_123"
+        >>> validate_identifier("../etc/passwd", "chart_id")
+        # Raises HTTPException(status_code=400)
+
+    Security Notes:
+        - Prevents directory traversal attacks
+        - Limits identifier length to prevent memory exhaustion
+        - Uses whitelist approach (only safe characters allowed)
     """
+    # Check for empty identifier - must have a value
     if not value:
         raise HTTPException(status_code=400, detail=f"{field_name} cannot be empty")
 
+    # Prevent resource exhaustion from extremely long identifiers
+    # Long strings could consume excessive memory or cause performance issues
     if len(value) > MAX_ID_LENGTH:
         raise HTTPException(
             status_code=400, detail=f"{field_name} cannot exceed {MAX_ID_LENGTH} characters"
         )
 
+    # Use whitelist approach: only allow known-safe characters
+    # This prevents injection attacks and ensures identifiers are URL-safe
     if not ID_PATTERN.match(value):
         raise HTTPException(
             status_code=400,
@@ -45,16 +83,38 @@ def validate_identifier(value: str, field_name: str) -> str:
             ),
         )
 
-    # Prevent path traversal
+    # Prevent path traversal attacks that could access filesystem outside intended directory
+    # ".." moves up directory tree, leading "/" or "\" indicates absolute path
     if ".." in value or value.startswith(("/", "\\")):
         raise HTTPException(status_code=400, detail=f"Invalid {field_name} format")
 
+    # All validation checks passed - return the identifier
     return value
 
 
-# Dependency to get datafeed service
 def get_datafeed(request: Request) -> DatafeedService:
-    """Get datafeed service from app state."""
+    """Get datafeed service from FastAPI application state.
+
+    This is a FastAPI dependency function that retrieves the DatafeedService
+    instance from the application state. It's used with FastAPI's dependency
+    injection system to provide the service to endpoint handlers.
+
+    Args:
+        request: The FastAPI Request object containing app state.
+
+    Returns:
+        DatafeedService: The datafeed service instance for managing chart data.
+
+    Note:
+        This function is used as a dependency via FastAPI's Depends() mechanism.
+        The datafeed service is initialized in app.py during application startup.
+
+    Example:
+        >>> @router.get("/endpoint")
+        >>> async def endpoint(datafeed: DatafeedService = Depends(get_datafeed)):
+        ...     # Use datafeed service
+        ...     pass
+    """
     return request.app.state.datafeed
 
 
@@ -63,19 +123,51 @@ async def get_chart(
     chart_id: str = Path(..., min_length=1, max_length=MAX_ID_LENGTH),
     datafeed: DatafeedService = Depends(get_datafeed),
 ):
-    """Get full chart data including all series.
+    """Get full chart data including all series across all panes.
+
+    This endpoint retrieves complete chart configuration and all series data.
+    It's typically used for initial chart loading on the frontend.
 
     Args:
-        chart_id: Unique chart identifier.
+        chart_id: Unique chart identifier from the URL path.
+            Must be 1-128 characters, alphanumeric with _, -, . allowed.
+        datafeed: DatafeedService instance injected via FastAPI dependency.
 
     Returns:
-        Chart data with all series.
+        dict: Chart data structure containing:
+            - chartId (str): The chart identifier
+            - panes (dict): All panes with their series data
+            - options (dict): Chart configuration options
+
+    Raises:
+        HTTPException: 404 if chart does not exist
+        HTTPException: 400 if chart_id validation fails
+
+    Example Response:
+        {
+            "chartId": "my_chart",
+            "panes": {
+                "0": {
+                    "main": {
+                        "seriesType": "candlestick",
+                        "data": [...],
+                        "options": {...}
+                    }
+                }
+            },
+            "options": {"width": 800, "height": 600}
+        }
     """
+    # Validate the chart_id to prevent security issues
     chart_id = validate_identifier(chart_id, "chart_id")
+
+    # Check if chart exists before attempting to retrieve data
     chart = await datafeed.get_chart(chart_id)
     if not chart:
+        # Return 404 if chart doesn't exist - standard REST convention
         raise HTTPException(status_code=404, detail="Chart not found")
 
+    # Retrieve all chart data including all panes and series
     return await datafeed.get_initial_data(chart_id)
 
 

@@ -3,130 +3,145 @@ API Reference
 
 This section provides detailed API reference for all public interfaces.
 
-Endpoints
----------
-
 REST API Endpoints
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Charts API
-^^^^^^^^^^
+~~~~~~~~~~
 
-.. http:get:: /api/charts/{chart_id}
+All endpoints are prefixed with ``/api/charts``.
 
-   Get full chart data including all series.
+GET /{chart_id}
+^^^^^^^^^^^^^^^
 
-   :param chart_id: Unique chart identifier
-   :type chart_id: string
-   :statuscode 200: Success
-   :statuscode 404: Chart not found
+Get full chart data including all series.
 
-.. http:post:: /api/charts/{chart_id}
+- **Parameters**: ``chart_id`` (string) - Unique chart identifier
+- **Returns**: Chart data with all series and configuration
+- **Status Codes**: 200 (Success), 404 (Chart not found)
 
-   Create a new chart.
-
-   :param chart_id: Unique chart identifier
-   :type chart_id: string
-   :reqjson object options: Chart configuration options
-   :statuscode 200: Chart created successfully
-   :statuscode 400: Invalid request
-
-.. http:get:: /api/charts/{chart_id}/data/{pane_id}/{series_id}
-
-   Get data for a specific series with smart chunking.
-
-   :param chart_id: Chart identifier
-   :param pane_id: Pane index
-   :param series_id: Series identifier
-   :statuscode 200: Success
-   :statuscode 404: Chart or series not found
-
-.. http:post:: /api/charts/{chart_id}/data/{series_id}
-
-   Set data for a series.
-
-   :param chart_id: Chart identifier
-   :param series_id: Series identifier
-   :reqjson int pane_id: Pane index (default: 0)
-   :reqjson string series_type: Type of series (line, candlestick, etc.)
-   :reqjson array data: Array of data points
-   :reqjson object options: Series configuration options
-   :statuscode 200: Data set successfully
-   :statuscode 400: Invalid request
-   :statuscode 404: Chart not found
-
-.. http:get:: /api/charts/{chart_id}/history/{pane_id}/{series_id}
-
-   Get historical data chunk for infinite history loading.
-
-   :param chart_id: Chart identifier
-   :param pane_id: Pane index
-   :param series_id: Series identifier
-   :query int before_time: Get data before this timestamp
-   :query int count: Number of data points to return (default: 500)
-   :statuscode 200: Success
-   :statuscode 400: Invalid parameters
-   :statuscode 404: Chart or series not found
-
-Health Endpoints
+POST /{chart_id}
 ^^^^^^^^^^^^^^^^
 
-.. http:get:: /health
+Create a new chart.
 
-   Basic health check endpoint for liveness probes.
+- **Parameters**: ``chart_id`` (string) - Unique chart identifier
+- **Body**: ``options`` (object, optional) - Chart configuration options
+- **Returns**: Created chart state
+- **Status Codes**: 200 (Success), 400 (Invalid request)
 
-   :statuscode 200: Service is alive
+GET /{chart_id}/data/{pane_id}/{series_id}
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. http:get:: /health/ready
+Get data for a specific series with smart chunking.
 
-   Readiness check that verifies DatafeedService is functional.
+- **Parameters**:
+  - ``chart_id`` (string) - Chart identifier
+  - ``pane_id`` (integer) - Pane index
+  - ``series_id`` (string) - Series identifier
+- **Returns**: Series data with chunking metadata
+- **Status Codes**: 200 (Success), 404 (Chart or series not found)
 
-   :statuscode 200: Service is ready
-   :statuscode 503: Service is degraded
+POST /{chart_id}/data/{series_id}
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Set data for a series.
+
+- **Parameters**:
+  - ``chart_id`` (string) - Chart identifier
+  - ``series_id`` (string) - Series identifier
+- **Body**:
+  - ``pane_id`` (integer) - Pane index (default: 0)
+  - ``series_type`` (string) - Type of series (line, candlestick, etc.)
+  - ``data`` (array) - Array of data points
+  - ``options`` (object, optional) - Series configuration options
+- **Returns**: Updated series metadata
+- **Status Codes**: 200 (Success), 400 (Invalid request), 404 (Chart not found)
+
+GET /{chart_id}/history/{pane_id}/{series_id}
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Get historical data chunk for infinite history loading.
+
+- **Parameters**:
+  - ``chart_id`` (string) - Chart identifier
+  - ``pane_id`` (integer) - Pane index
+  - ``series_id`` (string) - Series identifier
+- **Query Parameters**:
+  - ``before_time`` (integer) - Get data before this timestamp
+  - ``count`` (integer) - Number of data points to return (default: 500)
+- **Returns**: Data chunk with pagination metadata
+- **Status Codes**: 200 (Success), 400 (Invalid parameters), 404 (Chart or series not found)
+
+Health Endpoints
+~~~~~~~~~~~~~~~~
+
+GET /health
+^^^^^^^^^^^
+
+Basic health check endpoint for liveness probes.
+
+- **Returns**: ``{"status": "healthy", "version": "0.1.0"}``
+- **Status Codes**: 200 (Success)
+
+GET /health/ready
+^^^^^^^^^^^^^^^^^
+
+Readiness check that verifies DatafeedService is functional.
+
+- **Returns**: Detailed health status with service checks
+- **Status Codes**: 200 (Ready), 503 (Degraded)
 
 WebSocket API
-~~~~~~~~~~~~~
+-------------
 
-.. websocket:: /ws/charts/{chart_id}
+WS /ws/charts/{chart_id}
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-   WebSocket endpoint for real-time chart updates.
+WebSocket endpoint for real-time chart updates.
 
-   :param chart_id: Chart identifier
+- **Parameters**: ``chart_id`` (string) - Chart identifier
 
-   **Supported Message Types:**
+**Supported Message Types:**
 
-   * ``request_history``: Request historical data chunk
-   * ``get_initial_data``: Request initial data for a series
-   * ``ping``: Connection health check
+- ``request_history`` - Request historical data chunk
+- ``get_initial_data`` - Request initial data for a series
+- ``ping`` - Connection health check
 
-   **Example Messages:**
+**Example Messages:**
 
-   Request history:
+Request history::
 
-   .. code-block:: json
+    {
+      "type": "request_history",
+      "paneId": 0,
+      "seriesId": "main",
+      "beforeTime": 1609459200,
+      "count": 500
+    }
 
-      {
-        "type": "request_history",
-        "paneId": 0,
-        "seriesId": "main",
-        "beforeTime": 1609459200,
-        "count": 500
-      }
+Get initial data::
 
-   Get initial data:
+    {
+      "type": "get_initial_data",
+      "paneId": 0,
+      "seriesId": "main"
+    }
 
-   .. code-block:: json
+Ping::
 
-      {
-        "type": "get_initial_data",
-        "paneId": 0,
-        "seriesId": "main"
-      }
+    {
+      "type": "ping"
+    }
 
-   Ping:
+Response Types
+~~~~~~~~~~~~~~
 
-   .. code-block:: json
+The WebSocket server sends the following message types:
 
-      {
-        "type": "ping"
-      }
+- ``connected`` - Connection acknowledgment
+- ``initial_data_response`` - Response with initial series data
+- ``history_response`` - Response with historical data chunk
+- ``data_update`` - Real-time data update notification
+- ``error`` - Error message
+- ``pong`` - Response to ping
