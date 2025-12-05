@@ -5,8 +5,9 @@ This module implements the smart chunking and pagination strategy for large data
 
 import asyncio
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, Callable, Optional, TypedDict
+from typing import Any, TypedDict
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +62,7 @@ class SeriesData:
 
     def get_data_chunk(
         self,
-        before_time: Optional[int] = None,
+        before_time: int | None = None,
         count: int = 500,
     ) -> DataChunk:
         """Get a chunk of data for infinite history loading.
@@ -140,7 +141,7 @@ class ChartState:
     panes: dict[int, dict[str, SeriesData]] = field(default_factory=dict)
     options: dict[str, Any] = field(default_factory=dict)
 
-    def get_series(self, pane_id: int, series_id: str) -> Optional[SeriesData]:
+    def get_series(self, pane_id: int, series_id: str) -> SeriesData | None:
         """Get series data by pane and series ID."""
         if pane_id not in self.panes:
             return None
@@ -192,12 +193,12 @@ class DatafeedService:
         self._subscribers: dict[str, list[Callable]] = {}
         self._lock = asyncio.Lock()
 
-    async def get_chart(self, chart_id: str) -> Optional[ChartState]:
+    async def get_chart(self, chart_id: str) -> ChartState | None:
         """Get chart state by ID."""
         async with self._lock:
             return self._charts.get(chart_id)
 
-    async def create_chart(self, chart_id: str, options: Optional[dict] = None) -> ChartState:
+    async def create_chart(self, chart_id: str, options: dict | None = None) -> ChartState:
         """Create a new chart state.
 
         Args:
@@ -210,7 +211,7 @@ class DatafeedService:
         async with self._lock:
             return self._create_chart_no_lock(chart_id, options)
 
-    def _create_chart_no_lock(self, chart_id: str, options: Optional[dict] = None) -> ChartState:
+    def _create_chart_no_lock(self, chart_id: str, options: dict | None = None) -> ChartState:
         """Internal method to create chart without acquiring lock.
 
         Must only be called when lock is already held.
@@ -236,7 +237,7 @@ class DatafeedService:
         series_id: str,
         series_type: str,
         data: list[dict[str, Any]],
-        options: Optional[dict] = None,
+        options: dict | None = None,
     ) -> SeriesData:
         """Set data for a series.
 
@@ -283,8 +284,8 @@ class DatafeedService:
     async def get_initial_data(
         self,
         chart_id: str,
-        pane_id: Optional[int] = None,
-        series_id: Optional[str] = None,
+        pane_id: int | None = None,
+        series_id: str | None = None,
     ) -> dict[str, Any]:
         """Get initial data for chart rendering.
 

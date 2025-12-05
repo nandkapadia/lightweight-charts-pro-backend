@@ -29,9 +29,24 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e ".[dev]"
 
+    - name: Run linters
+      run: |
+        echo "Running isort..."
+        isort --check-only --diff lightweight_charts_pro_backend tests
+        echo "Running black..."
+        black --check --diff lightweight_charts_pro_backend tests
+        echo "Running ruff..."
+        ruff check lightweight_charts_pro_backend tests
+
     - name: Run tests
       run: |
-        pytest tests/ -v --tb=short
+        pytest tests/ -v --tb=short --cov=lightweight_charts_pro_backend --cov-report=xml --cov-report=term
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
 
   publish:
     needs: test

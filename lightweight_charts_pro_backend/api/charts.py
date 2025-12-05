@@ -1,7 +1,7 @@
 """Chart API endpoints for data management."""
 
 import re
-from typing import Any, Optional
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Request
 
@@ -82,7 +82,7 @@ async def get_chart(
 @router.post("/{chart_id}")
 async def create_chart(
     chart_id: str = Path(..., min_length=1, max_length=MAX_ID_LENGTH),
-    options: Optional[dict[str, Any]] = None,
+    options: dict[str, Any] | None = None,
     datafeed: DatafeedService = Depends(get_datafeed),
 ):
     """Create a new chart.

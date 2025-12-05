@@ -4,7 +4,7 @@ import asyncio
 import json
 import logging
 import re
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
@@ -20,7 +20,7 @@ ID_PATTERN = re.compile(r"^[a-zA-Z0-9_\-\.]+$")
 MAX_HISTORY_COUNT = 10000
 
 
-def validate_identifier(value: Optional[str], field_name: str) -> Optional[str]:
+def validate_identifier(value: str | None, field_name: str) -> str | None:
     """Validate an identifier (chart_id, series_id).
 
     Args:
@@ -58,7 +58,7 @@ def validate_identifier(value: Optional[str], field_name: str) -> Optional[str]:
     return value
 
 
-def validate_pane_id(value: Optional[int]) -> int:
+def validate_pane_id(value: int | None) -> int:
     """Validate pane_id.
 
     Args:
@@ -82,7 +82,7 @@ def validate_pane_id(value: Optional[int]) -> int:
     return value
 
 
-def validate_count(value: Optional[int]) -> int:
+def validate_count(value: int | None) -> int:
     """Validate count parameter.
 
     Args:
@@ -106,7 +106,7 @@ def validate_count(value: Optional[int]) -> int:
     return value
 
 
-def validate_before_time(value: Optional[int]) -> Optional[int]:
+def validate_before_time(value: int | None) -> int | None:
     """Validate before_time parameter.
 
     Args:
