@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lightweight_charts_pro_backend.models.charts &mdash; Lightweight Charts Pro Backend 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Lightweight Charts Pro Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.app">Application</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.app.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.api">API Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_datafeed"><code class="docutils literal notranslate"><span class="pre">get_datafeed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_chart"><code class="docutils literal notranslate"><span class="pre">get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.create_chart"><code class="docutils literal notranslate"><span class="pre">create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_series_data"><code class="docutils literal notranslate"><span class="pre">get_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.set_series_data"><code class="docutils literal notranslate"><span class="pre">set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_history"><code class="docutils literal notranslate"><span class="pre">get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_history_batch"><code class="docutils literal notranslate"><span class="pre">get_history_batch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.models">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.charts.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.charts.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.charts.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.ChunkInfo"><code class="docutils literal notranslate"><span class="pre">ChunkInfo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.DataChunk"><code class="docutils literal notranslate"><span class="pre">DataChunk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.SeriesData"><code class="docutils literal notranslate"><span class="pre">SeriesData</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.ChartState"><code class="docutils literal notranslate"><span class="pre">ChartState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.websocket">WebSocket</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_pane_id"><code class="docutils literal notranslate"><span class="pre">validate_pane_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_count"><code class="docutils literal notranslate"><span class="pre">validate_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_before_time"><code class="docutils literal notranslate"><span class="pre">validate_before_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.ConnectionManager"><code class="docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.chart_websocket"><code class="docutils literal notranslate"><span class="pre">chart_websocket()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#rest-api-endpoints">REST API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#charts-api">Charts API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-chart-id">GET /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#post-chart-id">POST /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-chart-id-data-pane-id-series-id">GET /{chart_id}/data/{pane_id}/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#post-chart-id-data-series-id">POST /{chart_id}/data/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-chart-id-history-pane-id-series-id">GET /{chart_id}/history/{pane_id}/{series_id}</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#health-endpoints">Health Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-health">GET /health</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-health-ready">GET /health/ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#websocket-api">WebSocket API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#ws-ws-charts-chart-id">WS /ws/charts/{chart_id}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#response-types">Response Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#basic-server-setup">Basic Server Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#custom-configuration">Custom Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#setting-chart-data">Setting Chart Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-large-datasets">Working with Large Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#websocket-client-example">WebSocket Client Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#integration-with-fastapi-dependencies">Integration with FastAPI Dependencies</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lightweight Charts Pro Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lightweight_charts_pro_backend.models.charts</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lightweight_charts_pro_backend.models.charts</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Pydantic models for chart API requests and responses.</span>
+
+<span class="sd">This module defines validation models using Pydantic for all chart-related</span>
+<span class="sd">API requests and responses. These models ensure type safety, automatic</span>
+<span class="sd">validation, and clear API documentation through FastAPI&#39;s integration</span>
+<span class="sd">with Pydantic.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Standard Imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="c1"># Third Party Imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">field_validator</span>
+
+
+<div class="viewcode-block" id="SetSeriesDataRequest">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.models.SetSeriesDataRequest">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetSeriesDataRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Request model for setting series data on a chart.</span>
+
+<span class="sd">    This model validates incoming requests to set or update series data</span>
+<span class="sd">    on a chart. It supports multiple series types and allows optional</span>
+<span class="sd">    configuration through the options field.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        pane_id: Pane index where the series should be displayed.</span>
+<span class="sd">            Defaults to 0 (main pane). Must be non-negative integer.</span>
+<span class="sd">            Charts can have multiple panes for indicators, volume, etc.</span>
+<span class="sd">        series_type: Type of series to create or update. Common types include</span>
+<span class="sd">            &#39;line&#39;, &#39;area&#39;, &#39;bar&#39;, &#39;candlestick&#39;, &#39;histogram&#39;, &#39;baseline&#39;.</span>
+<span class="sd">            This determines how the data is visually represented.</span>
+<span class="sd">        data: List of data points for the series. Each data point should be</span>
+<span class="sd">            a dictionary containing at minimum a &#39;time&#39; key (Unix timestamp</span>
+<span class="sd">            or date string) and a value key (&#39;value&#39; for line/area, &#39;open&#39;,</span>
+<span class="sd">            &#39;high&#39;, &#39;low&#39;, &#39;close&#39; for candlestick, etc.).</span>
+<span class="sd">        options: Optional configuration dictionary for series appearance and</span>
+<span class="sd">            behavior. Can include color, line width, price format, etc.</span>
+<span class="sd">            Structure depends on the series_type.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; request = SetSeriesDataRequest(</span>
+<span class="sd">        ...     pane_id=0,</span>
+<span class="sd">        ...     series_type=&quot;candlestick&quot;,</span>
+<span class="sd">        ...     data=[</span>
+<span class="sd">        ...         {&quot;time&quot;: 1609459200, &quot;open&quot;: 100, &quot;high&quot;: 105, &quot;low&quot;: 99, &quot;close&quot;: 103},</span>
+<span class="sd">        ...         {&quot;time&quot;: 1609545600, &quot;open&quot;: 103, &quot;high&quot;: 108, &quot;low&quot;: 102, &quot;close&quot;: 107}</span>
+<span class="sd">        ...     ],</span>
+<span class="sd">        ...     options={&quot;upColor&quot;: &quot;#26a69a&quot;, &quot;downColor&quot;: &quot;#ef5350&quot;}</span>
+<span class="sd">        ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Pane index - default to main pane (0), must be non-negative</span>
+    <span class="n">pane_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Pane index&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Series type - required field that determines visualization type</span>
+    <span class="n">series_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Series type&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Data points - required field containing the actual chart data</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Series data points&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Optional series configuration for customizing appearance and behavior</span>
+    <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Series options&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SetSeriesDataRequest.validate_series_type">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.models.SetSeriesDataRequest.validate_series_type">[docs]</a>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;series_type&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_series_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate series type is a known type.</span>
+
+<span class="sd">        This validator checks if the provided series type is one of the</span>
+<span class="sd">        standard TradingView Lightweight Charts series types. Unknown types</span>
+<span class="sd">        are allowed for extensibility (custom series implementations).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            v: The series type string to validate.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The validated series type (unchanged).</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This validator currently allows all types for extensibility.</span>
+<span class="sd">            Future versions may add warnings for unknown types.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Define the standard TradingView Lightweight Charts series types</span>
+        <span class="n">valid_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="s2">&quot;area&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;candlestick&quot;</span><span class="p">,</span> <span class="s2">&quot;histogram&quot;</span><span class="p">,</span> <span class="s2">&quot;baseline&quot;</span><span class="p">}</span>
+
+        <span class="c1"># Check if the type is recognized (case-insensitive)</span>
+        <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_types</span><span class="p">:</span>
+            <span class="c1"># Allow unknown types for extensibility (e.g., custom series)</span>
+            <span class="c1"># In production, you might want to log a warning here</span>
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">v</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="GetHistoryRequest">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.models.GetHistoryRequest">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetHistoryRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Request model for getting historical data chunks.</span>
+
+<span class="sd">    This model is used for infinite history loading where the frontend</span>
+<span class="sd">    requests additional historical data as the user scrolls back in time.</span>
+<span class="sd">    It implements a pagination-like pattern for large datasets.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        pane_id: Pane index where the series is displayed. Must be non-negative.</span>
+<span class="sd">            This identifies which pane of the chart the series belongs to.</span>
+<span class="sd">        series_id: Unique identifier for the series within the pane.</span>
+<span class="sd">            Used to retrieve the correct data series from storage.</span>
+<span class="sd">        before_time: Unix timestamp boundary for historical data request.</span>
+<span class="sd">            Returns data points with timestamps strictly before this value.</span>
+<span class="sd">            This enables &quot;scroll back&quot; functionality - as users scroll left,</span>
+<span class="sd">            they request data before the earliest visible timestamp.</span>
+<span class="sd">        count: Number of data points to return in this chunk.</span>
+<span class="sd">            Defaults to 500 points. Maximum allowed is 10000 to prevent</span>
+<span class="sd">            memory issues and ensure responsive API performance.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Request 500 data points before timestamp 1609459200</span>
+<span class="sd">        &gt;&gt;&gt; request = GetHistoryRequest(</span>
+<span class="sd">        ...     pane_id=0,</span>
+<span class="sd">        ...     series_id=&quot;main_series&quot;,</span>
+<span class="sd">        ...     before_time=1609459200,</span>
+<span class="sd">        ...     count=500</span>
+<span class="sd">        ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Pane index - required, must be non-negative</span>
+    <span class="n">pane_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Pane index&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Series identifier - required, must be non-empty string</span>
+    <span class="n">series_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Series identifier&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Timestamp boundary - required, must be non-negative (Unix timestamp)</span>
+    <span class="n">before_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Timestamp boundary&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Number of points to fetch - optional with sensible defaults</span>
+    <span class="c1"># Default 500 is a good balance between network overhead and responsiveness</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Number of points&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ChartOptionsRequest">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.models.ChartOptionsRequest">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChartOptionsRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Request model for chart creation and configuration options.</span>
+
+<span class="sd">    This model defines optional configuration for creating or updating charts.</span>
+<span class="sd">    All fields are optional to allow partial configuration updates. The options</span>
+<span class="sd">    follow TradingView Lightweight Charts API structure.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        width: Chart width in pixels. Must be between 100 and 10000 pixels.</span>
+<span class="sd">            If not specified, the chart will use default or container width.</span>
+<span class="sd">        height: Chart height in pixels. Must be between 100 and 10000 pixels.</span>
+<span class="sd">            If not specified, the chart will use default or container height.</span>
+<span class="sd">        layout: Layout configuration dictionary for chart appearance.</span>
+<span class="sd">            Can include: background color, text color, font family, etc.</span>
+<span class="sd">            Example: {&quot;background&quot;: {&quot;color&quot;: &quot;#ffffff&quot;}, &quot;textColor&quot;: &quot;#333&quot;}</span>
+<span class="sd">        crosshair: Crosshair configuration dictionary for the cursor behavior.</span>
+<span class="sd">            Can include: mode (normal/magnet), vertical/horizontal line styles.</span>
+<span class="sd">            Example: {&quot;mode&quot;: 1, &quot;vertLine&quot;: {&quot;visible&quot;: True}}</span>
+<span class="sd">        grid: Grid configuration dictionary for chart gridlines.</span>
+<span class="sd">            Can include: vertical/horizontal line colors, styles, visibility.</span>
+<span class="sd">            Example: {&quot;vertLines&quot;: {&quot;color&quot;: &quot;#e1e1e1&quot;}, &quot;horzLines&quot;: {&quot;color&quot;: &quot;#e1e1e1&quot;}}</span>
+<span class="sd">        time_scale: Time scale (x-axis) configuration dictionary.</span>
+<span class="sd">            Can include: time visible, seconds visible, border settings.</span>
+<span class="sd">            Example: {&quot;timeVisible&quot;: True, &quot;secondsVisible&quot;: False}</span>
+<span class="sd">            Note: Uses snake_case internally but accepts camelCase from JSON.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; options = ChartOptionsRequest(</span>
+<span class="sd">        ...     width=800,</span>
+<span class="sd">        ...     height=600,</span>
+<span class="sd">        ...     layout={&quot;background&quot;: {&quot;color&quot;: &quot;#ffffff&quot;}, &quot;textColor&quot;: &quot;#333&quot;},</span>
+<span class="sd">        ...     timeScale={&quot;timeVisible&quot;: True, &quot;secondsVisible&quot;: False}</span>
+<span class="sd">        ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Chart dimensions - optional with sensible constraints</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+
+    <span class="c1"># Visual configuration - all optional for flexibility</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">crosshair</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Time scale configuration - uses alias for camelCase JSON compatibility</span>
+    <span class="n">time_scale</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;timeScale&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Streamlit Lightweight Charts Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

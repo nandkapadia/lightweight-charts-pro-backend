@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lightweight_charts_pro_backend.services.datafeed &mdash; Lightweight Charts Pro Backend 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Lightweight Charts Pro Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.app">Application</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.app.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.api">API Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_datafeed"><code class="docutils literal notranslate"><span class="pre">get_datafeed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_chart"><code class="docutils literal notranslate"><span class="pre">get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.create_chart"><code class="docutils literal notranslate"><span class="pre">create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_series_data"><code class="docutils literal notranslate"><span class="pre">get_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.set_series_data"><code class="docutils literal notranslate"><span class="pre">set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_history"><code class="docutils literal notranslate"><span class="pre">get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.api.charts.get_history_batch"><code class="docutils literal notranslate"><span class="pre">get_history_batch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.models">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.charts.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.charts.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.models.charts.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.ChunkInfo"><code class="docutils literal notranslate"><span class="pre">ChunkInfo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.DataChunk"><code class="docutils literal notranslate"><span class="pre">DataChunk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.SeriesData"><code class="docutils literal notranslate"><span class="pre">SeriesData</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.ChartState"><code class="docutils literal notranslate"><span class="pre">ChartState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.services.datafeed.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#module-lightweight_charts_pro_backend.websocket">WebSocket</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_pane_id"><code class="docutils literal notranslate"><span class="pre">validate_pane_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_count"><code class="docutils literal notranslate"><span class="pre">validate_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_before_time"><code class="docutils literal notranslate"><span class="pre">validate_before_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.ConnectionManager"><code class="docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules.html#lightweight_charts_pro_backend.websocket.handlers.chart_websocket"><code class="docutils literal notranslate"><span class="pre">chart_websocket()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#rest-api-endpoints">REST API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#charts-api">Charts API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-chart-id">GET /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#post-chart-id">POST /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-chart-id-data-pane-id-series-id">GET /{chart_id}/data/{pane_id}/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#post-chart-id-data-series-id">POST /{chart_id}/data/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-chart-id-history-pane-id-series-id">GET /{chart_id}/history/{pane_id}/{series_id}</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#health-endpoints">Health Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-health">GET /health</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html#get-health-ready">GET /health/ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#websocket-api">WebSocket API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#ws-ws-charts-chart-id">WS /ws/charts/{chart_id}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/index.html#response-types">Response Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#basic-server-setup">Basic Server Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#custom-configuration">Custom Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#setting-chart-data">Setting Chart Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-large-datasets">Working with Large Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#websocket-client-example">WebSocket Client Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#integration-with-fastapi-dependencies">Integration with FastAPI Dependencies</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lightweight Charts Pro Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lightweight_charts_pro_backend.services.datafeed</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lightweight_charts_pro_backend.services.datafeed</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;DatafeedService for managing chart data with infinite history support.</span>
+
+<span class="sd">This module implements the smart chunking and pagination strategy for large datasets.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypedDict</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ChunkInfo">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.ChunkInfo">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChunkInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Information about a data chunk.&quot;&quot;&quot;</span>
+
+    <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">end_index</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">start_time</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">end_time</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+
+<div class="viewcode-block" id="DataChunk">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DataChunk">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataChunk</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A chunk of chart data.&quot;&quot;&quot;</span>
+
+    <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="n">chunk_info</span><span class="p">:</span> <span class="n">ChunkInfo</span>
+    <span class="n">has_more_before</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">has_more_after</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">total_available</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+
+<div class="viewcode-block" id="SeriesData">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.SeriesData">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SeriesData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for series data with metadata.&quot;&quot;&quot;</span>
+
+    <span class="n">series_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">series_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">_sorted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SeriesData.get_data_range">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.SeriesData.get_data_range">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end_time</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get data within a time range.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start_time: Start timestamp (inclusive).</span>
+<span class="sd">            end_time: End timestamp (inclusive).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of data points within the range.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span> <span class="n">start_time</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">end_time</span><span class="p">]</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ensure_sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure data is sorted by time (ascending).&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sorted</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sorted</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="SeriesData.get_data_chunk">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.SeriesData.get_data_chunk">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_data_chunk</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">before_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataChunk</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a chunk of data for infinite history loading.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            before_time: Get data before this timestamp. None = latest data.</span>
+<span class="sd">            count: Number of data points to return.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataChunk with data and metadata.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">DataChunk</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">chunk_info</span><span class="o">=</span><span class="n">ChunkInfo</span><span class="p">(</span>
+                    <span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">end_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">start_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">has_more_before</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">has_more_after</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">total_available</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Ensure data is sorted (only sorts once)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_sorted</span><span class="p">()</span>
+        <span class="n">sorted_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="k">if</span> <span class="n">before_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Return latest data</span>
+            <span class="n">end_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
+            <span class="n">start_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_index</span> <span class="o">-</span> <span class="n">count</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Find index of first item with time &gt;= before_time</span>
+            <span class="n">end_index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">before_time</span><span class="p">:</span>
+                    <span class="n">end_index</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">end_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
+
+            <span class="n">start_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_index</span> <span class="o">-</span> <span class="n">count</span><span class="p">)</span>
+
+        <span class="n">chunk_data</span> <span class="o">=</span> <span class="n">sorted_data</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">chunk_data</span><span class="p">:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">chunk_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">chunk_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="n">DataChunk</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">chunk_data</span><span class="p">,</span>
+            <span class="n">chunk_info</span><span class="o">=</span><span class="n">ChunkInfo</span><span class="p">(</span>
+                <span class="n">start_index</span><span class="o">=</span><span class="n">start_index</span><span class="p">,</span>
+                <span class="n">end_index</span><span class="o">=</span><span class="n">end_index</span><span class="p">,</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span>
+                <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
+                <span class="n">count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk_data</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="n">has_more_before</span><span class="o">=</span><span class="n">start_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">has_more_after</span><span class="o">=</span><span class="n">end_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">),</span>
+            <span class="n">total_available</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">),</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ChartState">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.ChartState">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChartState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;State container for a single chart.&quot;&quot;&quot;</span>
+
+    <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">panes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SeriesData</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ChartState.get_series">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.ChartState.get_series">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pane_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">series_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SeriesData</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get series data by pane and series ID.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pane_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">panes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">panes</span><span class="p">[</span><span class="n">pane_id</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">series_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ChartState.set_series">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.ChartState.set_series">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pane_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">series_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">SeriesData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set series data.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pane_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">panes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">panes</span><span class="p">[</span><span class="n">pane_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panes</span><span class="p">[</span><span class="n">pane_id</span><span class="p">][</span><span class="n">series_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">series</span></div>
+
+
+<div class="viewcode-block" id="ChartState.get_all_series_data">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.ChartState.get_all_series_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_series_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all series data for initial chart render.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary with pane structure and all series data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">pane_id</span><span class="p">,</span> <span class="n">series_dict</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">panes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">pane_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">series_id</span><span class="p">,</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">series_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">pane_data</span><span class="p">[</span><span class="n">series_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;seriesType&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">series_type</span><span class="p">,</span>
+                    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="n">result</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">pane_id</span><span class="p">)]</span> <span class="o">=</span> <span class="n">pane_data</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DatafeedService">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DatafeedService</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Service for managing chart data with smart chunking support.</span>
+
+<span class="sd">    This service implements the infinite history loading pattern where:</span>
+<span class="sd">    - Datasets &lt; 500 points: Send all data at once</span>
+<span class="sd">    - Datasets &gt;= 500 points: Chunk data for efficient loading</span>
+
+<span class="sd">    The frontend subscribes to visible range changes and requests more data</span>
+<span class="sd">    when the user scrolls near the edge.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">CHUNK_SIZE_THRESHOLD</span> <span class="o">=</span> <span class="mi">500</span>  <span class="c1"># Below this, send all data</span>
+
+<div class="viewcode-block" id="DatafeedService.__init__">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the datafeed service.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ChartState</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DatafeedService.get_chart">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_chart">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_chart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ChartState</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get chart state by ID.&quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chart_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DatafeedService.create_chart">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.create_chart">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_chart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ChartState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new chart state.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            chart_id: Unique chart identifier.</span>
+<span class="sd">            options: Chart options.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Created ChartState.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_chart_no_lock</span><span class="p">(</span><span class="n">chart_id</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_chart_no_lock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ChartState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal method to create chart without acquiring lock.</span>
+
+<span class="sd">        Must only be called when lock is already held.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            chart_id: Unique chart identifier.</span>
+<span class="sd">            options: Chart options.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Created ChartState.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">chart_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="p">[</span><span class="n">chart_id</span><span class="p">]</span>
+
+        <span class="n">chart</span> <span class="o">=</span> <span class="n">ChartState</span><span class="p">(</span><span class="n">chart_id</span><span class="o">=</span><span class="n">chart_id</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span> <span class="ow">or</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="p">[</span><span class="n">chart_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">chart</span>
+        <span class="k">return</span> <span class="n">chart</span>
+
+<div class="viewcode-block" id="DatafeedService.set_series_data">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.set_series_data">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_series_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">pane_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">series_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">series_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+        <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SeriesData</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set data for a series.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            chart_id: Chart identifier.</span>
+<span class="sd">            pane_id: Pane index.</span>
+<span class="sd">            series_id: Series identifier.</span>
+<span class="sd">            series_type: Type of series (line, candlestick, etc.)</span>
+<span class="sd">            data: List of data points.</span>
+<span class="sd">            options: Series options.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Created/updated SeriesData.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">chart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chart_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">chart</span><span class="p">:</span>
+                <span class="c1"># Use internal no-lock method since we already hold the lock</span>
+                <span class="n">chart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_chart_no_lock</span><span class="p">(</span><span class="n">chart_id</span><span class="p">)</span>
+
+            <span class="n">series</span> <span class="o">=</span> <span class="n">SeriesData</span><span class="p">(</span>
+                <span class="n">series_id</span><span class="o">=</span><span class="n">series_id</span><span class="p">,</span>
+                <span class="n">series_type</span><span class="o">=</span><span class="n">series_type</span><span class="p">,</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">options</span> <span class="ow">or</span> <span class="p">{},</span>
+            <span class="p">)</span>
+            <span class="c1"># Sort data once when setting</span>
+            <span class="n">series</span><span class="o">.</span><span class="n">_ensure_sorted</span><span class="p">()</span>
+            <span class="n">chart</span><span class="o">.</span><span class="n">set_series</span><span class="p">(</span><span class="n">pane_id</span><span class="p">,</span> <span class="n">series_id</span><span class="p">,</span> <span class="n">series</span><span class="p">)</span>
+
+            <span class="c1"># Prepare notification data while holding lock</span>
+            <span class="n">notification_data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;paneId&quot;</span><span class="p">:</span> <span class="n">pane_id</span><span class="p">,</span>
+                <span class="s2">&quot;seriesId&quot;</span><span class="p">:</span> <span class="n">series_id</span><span class="p">,</span>
+                <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+            <span class="p">}</span>
+
+        <span class="c1"># Notify subscribers OUTSIDE the lock to prevent blocking</span>
+        <span class="c1"># This allows other operations to proceed while callbacks execute</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notify_subscribers</span><span class="p">(</span><span class="n">chart_id</span><span class="p">,</span> <span class="s2">&quot;data_update&quot;</span><span class="p">,</span> <span class="n">notification_data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">series</span></div>
+
+
+<div class="viewcode-block" id="DatafeedService.get_initial_data">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_initial_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">pane_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">series_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get initial data for chart rendering.</span>
+
+<span class="sd">        Implements smart chunking:</span>
+<span class="sd">        - If total data &lt; 500 points: Return all data</span>
+<span class="sd">        - If total data &gt;= 500 points: Return initial chunk</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            chart_id: Chart identifier.</span>
+<span class="sd">            pane_id: Optional specific pane.</span>
+<span class="sd">            series_id: Optional specific series.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Initial data payload with chunking metadata.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">chart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chart_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">chart</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Chart not found&quot;</span><span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">pane_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">series_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Single series request</span>
+                <span class="n">series</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_series</span><span class="p">(</span><span class="n">pane_id</span><span class="p">,</span> <span class="n">series_id</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">series</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Series not found&quot;</span><span class="p">}</span>
+
+                <span class="n">total_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">total_count</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHUNK_SIZE_THRESHOLD</span><span class="p">:</span>
+                    <span class="c1"># Small dataset - send all</span>
+                    <span class="k">return</span> <span class="p">{</span>
+                        <span class="s2">&quot;seriesId&quot;</span><span class="p">:</span> <span class="n">series_id</span><span class="p">,</span>
+                        <span class="s2">&quot;seriesType&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">series_type</span><span class="p">,</span>
+                        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                        <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
+                        <span class="s2">&quot;chunked&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;totalCount&quot;</span><span class="p">:</span> <span class="n">total_count</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="c1"># Large dataset - send initial chunk</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">get_data_chunk</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">CHUNK_SIZE_THRESHOLD</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="s2">&quot;seriesId&quot;</span><span class="p">:</span> <span class="n">series_id</span><span class="p">,</span>
+                    <span class="s2">&quot;seriesType&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">series_type</span><span class="p">,</span>
+                    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
+                    <span class="s2">&quot;chunked&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;chunkInfo&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;chunk_info&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;hasMoreBefore&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;has_more_before&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;hasMoreAfter&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;has_more_after&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;totalCount&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;total_available&quot;</span><span class="p">],</span>
+                <span class="p">}</span>
+            <span class="c1"># Full chart data</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;chartId&quot;</span><span class="p">:</span> <span class="n">chart_id</span><span class="p">,</span>
+                <span class="s2">&quot;panes&quot;</span><span class="p">:</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_all_series_data</span><span class="p">(),</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="n">chart</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
+            <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="DatafeedService.get_history">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_history">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_history</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">pane_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">series_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">before_time</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get historical data chunk for infinite history loading.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            chart_id: Chart identifier.</span>
+<span class="sd">            pane_id: Pane index.</span>
+<span class="sd">            series_id: Series identifier.</span>
+<span class="sd">            before_time: Get data before this timestamp.</span>
+<span class="sd">            count: Number of data points to return.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Data chunk with metadata.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">chart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chart_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">chart</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Chart not found&quot;</span><span class="p">}</span>
+
+            <span class="n">series</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_series</span><span class="p">(</span><span class="n">pane_id</span><span class="p">,</span> <span class="n">series_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">series</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Series not found&quot;</span><span class="p">}</span>
+
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">get_data_chunk</span><span class="p">(</span><span class="n">before_time</span><span class="o">=</span><span class="n">before_time</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;seriesId&quot;</span><span class="p">:</span> <span class="n">series_id</span><span class="p">,</span>
+                <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;chunkInfo&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;chunk_info&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;hasMoreBefore&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;has_more_before&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;hasMoreAfter&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;has_more_after&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;totalCount&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;total_available&quot;</span><span class="p">],</span>
+            <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="DatafeedService.subscribe">
+<a class="viewcode-back" href="../../../modules.html#lightweight_charts_pro_backend.DatafeedService.subscribe">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribe to chart updates.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            chart_id: Chart identifier.</span>
+<span class="sd">            callback: Async callback function.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Unsubscribe function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">chart_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="p">[</span><span class="n">chart_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="p">[</span><span class="n">chart_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">unsubscribe</span><span class="p">():</span>
+            <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">chart_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="p">[</span><span class="n">chart_id</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="k">pass</span>  <span class="c1"># Already removed</span>
+
+        <span class="k">return</span> <span class="n">unsubscribe</span></div>
+
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_notify_subscribers</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">chart_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Notify all subscribers of an event.&quot;&quot;&quot;</span>
+        <span class="n">subscribers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chart_id</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="n">subscribers</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">callback</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Callback error for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">chart_id</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Streamlit Lightweight Charts Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

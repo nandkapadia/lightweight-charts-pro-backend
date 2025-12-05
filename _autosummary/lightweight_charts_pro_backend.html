@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lightweight_charts_pro_backend &mdash; Lightweight Charts Pro Backend 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api/index.html" />
+    <link rel="prev" title="API Modules" href="../modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Lightweight Charts Pro Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">API Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modules.html#module-lightweight_charts_pro_backend">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules.html#module-lightweight_charts_pro_backend.app">Application</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.app.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules.html#module-lightweight_charts_pro_backend.api">API Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.get_datafeed"><code class="docutils literal notranslate"><span class="pre">get_datafeed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.get_chart"><code class="docutils literal notranslate"><span class="pre">get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.create_chart"><code class="docutils literal notranslate"><span class="pre">create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.get_series_data"><code class="docutils literal notranslate"><span class="pre">get_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.set_series_data"><code class="docutils literal notranslate"><span class="pre">set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.get_history"><code class="docutils literal notranslate"><span class="pre">get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.api.charts.get_history_batch"><code class="docutils literal notranslate"><span class="pre">get_history_batch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules.html#module-lightweight_charts_pro_backend.models">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.models.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.models.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.models.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.models.charts.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.models.charts.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.models.charts.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules.html#module-lightweight_charts_pro_backend.services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.ChunkInfo"><code class="docutils literal notranslate"><span class="pre">ChunkInfo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.DataChunk"><code class="docutils literal notranslate"><span class="pre">DataChunk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.SeriesData"><code class="docutils literal notranslate"><span class="pre">SeriesData</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.ChartState"><code class="docutils literal notranslate"><span class="pre">ChartState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules.html#module-lightweight_charts_pro_backend.websocket">WebSocket</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_pane_id"><code class="docutils literal notranslate"><span class="pre">validate_pane_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_count"><code class="docutils literal notranslate"><span class="pre">validate_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_before_time"><code class="docutils literal notranslate"><span class="pre">validate_before_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.websocket.handlers.ConnectionManager"><code class="docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.websocket.handlers.chart_websocket"><code class="docutils literal notranslate"><span class="pre">chart_websocket()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#rest-api-endpoints">REST API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/index.html#charts-api">Charts API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html#get-chart-id">GET /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html#post-chart-id">POST /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html#get-chart-id-data-pane-id-series-id">GET /{chart_id}/data/{pane_id}/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html#post-chart-id-data-series-id">POST /{chart_id}/data/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html#get-chart-id-history-pane-id-series-id">GET /{chart_id}/history/{pane_id}/{series_id}</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/index.html#health-endpoints">Health Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html#get-health">GET /health</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html#get-health-ready">GET /health/ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#websocket-api">WebSocket API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/index.html#ws-ws-charts-chart-id">WS /ws/charts/{chart_id}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/index.html#response-types">Response Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#basic-server-setup">Basic Server Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#custom-configuration">Custom Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#setting-chart-data">Setting Chart Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#working-with-large-datasets">Working with Large Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#websocket-client-example">WebSocket Client Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#integration-with-fastapi-dependencies">Integration with FastAPI Dependencies</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Lightweight Charts Pro Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../modules.html">API Modules</a></li>
+      <li class="breadcrumb-item active">lightweight_charts_pro_backend</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/lightweight_charts_pro_backend.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lightweight_charts_pro_backend">
+<span id="lightweight-charts-pro-backend"></span><h1>lightweight_charts_pro_backend<a class="headerlink" href="#module-lightweight_charts_pro_backend" title="Link to this heading"></a></h1>
+<p>Lightweight Charts Pro Backend - FastAPI backend for TradingView Lightweight Charts.</p>
+<p>This package provides a production-ready REST API and WebSocket server for managing
+TradingView Lightweight Charts data. It includes support for:</p>
+<ul class="simple">
+<li><p>Real-time data updates via WebSocket</p></li>
+<li><p>Infinite history loading with smart chunking</p></li>
+<li><p>Multiple chart panes and series types</p></li>
+<li><p>Efficient data management for large datasets</p></li>
+<li><p>Comprehensive request validation and security</p></li>
+</ul>
+<p>The package is framework-agnostic and can be used with any frontend framework
+(React, Vue, Svelte, etc.) or with Streamlit for rapid prototyping.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">lightweight_charts_pro_backend</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_app</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">app</span> <span class="o">=</span> <span class="n">create_app</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.create_app">
+<span class="sig-prename descclassname"><span class="pre">lightweight_charts_pro_backend.</span></span><span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datafeed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.DatafeedService" title="lightweight_charts_pro_backend.services.datafeed.DatafeedService"><span class="pre">DatafeedService</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cors_origins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Lightweight</span> <span class="pre">Charts</span> <span class="pre">API'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0.1.0'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/fastapi/#fastapi.FastAPI" title="(in FastAPI v0.0.0)"><span class="pre">FastAPI</span></a></span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/app.html#create_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.create_app" title="Link to this definition"></a></dt>
+<dd><p>Create and configure FastAPI application with chart endpoints and WebSocket support.</p>
+<p>This factory function initializes a FastAPI application configured for
+serving TradingView Lightweight Charts data. It sets up CORS middleware,
+initializes the datafeed service, and registers API and WebSocket routers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datafeed</strong> – Optional DatafeedService instance for managing chart data.
+If None, creates a new default instance. This allows for custom
+datafeed implementations or dependency injection in tests.</p></li>
+<li><p><strong>cors_origins</strong> – List of allowed CORS origins as strings. If None,
+defaults to [”<a class="reference external" href="http://localhost:3000">http://localhost:3000</a>”, “<a class="reference external" href="http://localhost:8501">http://localhost:8501</a>”]
+to support common development servers (React, Streamlit).</p></li>
+<li><p><strong>title</strong> – API title shown in OpenAPI documentation. Defaults to
+“Lightweight Charts API”.</p></li>
+<li><p><strong>version</strong> – API version string for documentation and versioning.
+Defaults to “0.1.0”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Fully configured FastAPI application instance ready to run</dt><dd><p>with uvicorn or other ASGI servers.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FastAPI</p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">app</span> <span class="o">=</span> <span class="n">create_app</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lightweight_charts_pro_backend.</span></span><span class="sig-name descname"><span class="pre">DatafeedService</span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService" title="Link to this definition"></a></dt>
+<dd><p>Service for managing chart data with smart chunking support.</p>
+<p>This service implements the infinite history loading pattern where:
+- Datasets &lt; 500 points: Send all data at once
+- Datasets &gt;= 500 points: Chunk data for efficient loading</p>
+<p>The frontend subscribes to visible range changes and requests more data
+when the user scrolls near the edge.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD">
+<span class="sig-name descname"><span class="pre">CHUNK_SIZE_THRESHOLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">500</span></em><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the datafeed service.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.create_chart">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chart_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.ChartState" title="lightweight_charts_pro_backend.services.datafeed.ChartState"><span class="pre">ChartState</span></a></span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService.create_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.create_chart" title="Link to this definition"></a></dt>
+<dd><p>Create a new chart state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chart_id</strong> – Unique chart identifier.</p></li>
+<li><p><strong>options</strong> – Chart options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Created ChartState.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.get_chart">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chart_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.ChartState" title="lightweight_charts_pro_backend.services.datafeed.ChartState"><span class="pre">ChartState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService.get_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.get_chart" title="Link to this definition"></a></dt>
+<dd><p>Get chart state by ID.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.get_history">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chart_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pane_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">before_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService.get_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.get_history" title="Link to this definition"></a></dt>
+<dd><p>Get historical data chunk for infinite history loading.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chart_id</strong> – Chart identifier.</p></li>
+<li><p><strong>pane_id</strong> – Pane index.</p></li>
+<li><p><strong>series_id</strong> – Series identifier.</p></li>
+<li><p><strong>before_time</strong> – Get data before this timestamp.</p></li>
+<li><p><strong>count</strong> – Number of data points to return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data chunk with metadata.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.get_initial_data">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_initial_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chart_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pane_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService.get_initial_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.get_initial_data" title="Link to this definition"></a></dt>
+<dd><p>Get initial data for chart rendering.</p>
+<p>Implements smart chunking:
+- If total data &lt; 500 points: Return all data
+- If total data &gt;= 500 points: Return initial chunk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chart_id</strong> – Chart identifier.</p></li>
+<li><p><strong>pane_id</strong> – Optional specific pane.</p></li>
+<li><p><strong>series_id</strong> – Optional specific series.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Initial data payload with chunking metadata.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.set_series_data">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_series_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chart_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pane_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../modules.html#lightweight_charts_pro_backend.services.datafeed.SeriesData" title="lightweight_charts_pro_backend.services.datafeed.SeriesData"><span class="pre">SeriesData</span></a></span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService.set_series_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.set_series_data" title="Link to this definition"></a></dt>
+<dd><p>Set data for a series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chart_id</strong> – Chart identifier.</p></li>
+<li><p><strong>pane_id</strong> – Pane index.</p></li>
+<li><p><strong>series_id</strong> – Series identifier.</p></li>
+<li><p><strong>series_type</strong> – Type of series (line, candlestick, etc.)</p></li>
+<li><p><strong>data</strong> – List of data points.</p></li>
+<li><p><strong>options</strong> – Series options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Created/updated SeriesData.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightweight_charts_pro_backend.DatafeedService.subscribe">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chart_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lightweight_charts_pro_backend/services/datafeed.html#DatafeedService.subscribe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightweight_charts_pro_backend.DatafeedService.subscribe" title="Link to this definition"></a></dt>
+<dd><p>Subscribe to chart updates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chart_id</strong> – Chart identifier.</p></li>
+<li><p><strong>callback</strong> – Async callback function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unsubscribe function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../modules.html" class="btn btn-neutral float-left" title="API Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Streamlit Lightweight Charts Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

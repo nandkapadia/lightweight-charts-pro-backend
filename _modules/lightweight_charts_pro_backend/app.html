@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lightweight_charts_pro_backend.app &mdash; Lightweight Charts Pro Backend 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Lightweight Charts Pro Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">API Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules.html#module-lightweight_charts_pro_backend">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#module-lightweight_charts_pro_backend.app">Application</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.app.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#module-lightweight_charts_pro_backend.api">API Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.get_datafeed"><code class="docutils literal notranslate"><span class="pre">get_datafeed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.get_chart"><code class="docutils literal notranslate"><span class="pre">get_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.create_chart"><code class="docutils literal notranslate"><span class="pre">create_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.get_series_data"><code class="docutils literal notranslate"><span class="pre">get_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.set_series_data"><code class="docutils literal notranslate"><span class="pre">set_series_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.get_history"><code class="docutils literal notranslate"><span class="pre">get_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.api.charts.get_history_batch"><code class="docutils literal notranslate"><span class="pre">get_history_batch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#module-lightweight_charts_pro_backend.models">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.models.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.models.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.models.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.models.charts.SetSeriesDataRequest"><code class="docutils literal notranslate"><span class="pre">SetSeriesDataRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.models.charts.GetHistoryRequest"><code class="docutils literal notranslate"><span class="pre">GetHistoryRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.models.charts.ChartOptionsRequest"><code class="docutils literal notranslate"><span class="pre">ChartOptionsRequest</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#module-lightweight_charts_pro_backend.services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.services.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.services.datafeed.ChunkInfo"><code class="docutils literal notranslate"><span class="pre">ChunkInfo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.services.datafeed.DataChunk"><code class="docutils literal notranslate"><span class="pre">DataChunk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.services.datafeed.SeriesData"><code class="docutils literal notranslate"><span class="pre">SeriesData</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.services.datafeed.ChartState"><code class="docutils literal notranslate"><span class="pre">ChartState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.services.datafeed.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#module-lightweight_charts_pro_backend.websocket">WebSocket</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_identifier"><code class="docutils literal notranslate"><span class="pre">validate_identifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_pane_id"><code class="docutils literal notranslate"><span class="pre">validate_pane_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_count"><code class="docutils literal notranslate"><span class="pre">validate_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.websocket.handlers.validate_before_time"><code class="docutils literal notranslate"><span class="pre">validate_before_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.websocket.handlers.ConnectionManager"><code class="docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules.html#lightweight_charts_pro_backend.websocket.handlers.chart_websocket"><code class="docutils literal notranslate"><span class="pre">chart_websocket()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#rest-api-endpoints">REST API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/index.html#charts-api">Charts API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html#get-chart-id">GET /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html#post-chart-id">POST /{chart_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html#get-chart-id-data-pane-id-series-id">GET /{chart_id}/data/{pane_id}/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html#post-chart-id-data-series-id">POST /{chart_id}/data/{series_id}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html#get-chart-id-history-pane-id-series-id">GET /{chart_id}/history/{pane_id}/{series_id}</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/index.html#health-endpoints">Health Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html#get-health">GET /health</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html#get-health-ready">GET /health/ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#websocket-api">WebSocket API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/index.html#ws-ws-charts-chart-id">WS /ws/charts/{chart_id}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/index.html#response-types">Response Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html#basic-server-setup">Basic Server Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html#custom-configuration">Custom Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html#setting-chart-data">Setting Chart Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html#working-with-large-datasets">Working with Large Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html#websocket-client-example">WebSocket Client Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html#integration-with-fastapi-dependencies">Integration with FastAPI Dependencies</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html">lightweight_charts_pro_backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService"><code class="docutils literal notranslate"><span class="pre">DatafeedService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.CHUNK_SIZE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DatafeedService.CHUNK_SIZE_THRESHOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.__init__"><code class="docutils literal notranslate"><span class="pre">DatafeedService.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.create_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.create_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_chart"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_history"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_history()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.get_initial_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.get_initial_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.set_series_data"><code class="docutils literal notranslate"><span class="pre">DatafeedService.set_series_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/lightweight_charts_pro_backend.html#lightweight_charts_pro_backend.DatafeedService.subscribe"><code class="docutils literal notranslate"><span class="pre">DatafeedService.subscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Lightweight Charts Pro Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lightweight_charts_pro_backend.app</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lightweight_charts_pro_backend.app</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;FastAPI application factory for Lightweight Charts Backend.</span>
+
+<span class="sd">This module provides the create_app factory function that initializes and</span>
+<span class="sd">configures a FastAPI application with chart endpoints, WebSocket support,</span>
+<span class="sd">and CORS middleware for real-time TradingView Lightweight Charts data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Standard Imports</span>
+
+<span class="c1"># Third Party Imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.middleware.cors</span><span class="w"> </span><span class="kn">import</span> <span class="n">CORSMiddleware</span>
+
+<span class="c1"># Local Imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lightweight_charts_pro_backend.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">chart_router</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lightweight_charts_pro_backend.services</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatafeedService</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lightweight_charts_pro_backend.websocket</span><span class="w"> </span><span class="kn">import</span> <span class="n">websocket_router</span>
+
+
+<div class="viewcode-block" id="create_app">
+<a class="viewcode-back" href="../../modules.html#lightweight_charts_pro_backend.create_app">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_app</span><span class="p">(</span>
+    <span class="n">datafeed</span><span class="p">:</span> <span class="n">DatafeedService</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cors_origins</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Lightweight Charts API&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FastAPI</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and configure FastAPI application with chart endpoints and WebSocket support.</span>
+
+<span class="sd">    This factory function initializes a FastAPI application configured for</span>
+<span class="sd">    serving TradingView Lightweight Charts data. It sets up CORS middleware,</span>
+<span class="sd">    initializes the datafeed service, and registers API and WebSocket routers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        datafeed: Optional DatafeedService instance for managing chart data.</span>
+<span class="sd">            If None, creates a new default instance. This allows for custom</span>
+<span class="sd">            datafeed implementations or dependency injection in tests.</span>
+<span class="sd">        cors_origins: List of allowed CORS origins as strings. If None,</span>
+<span class="sd">            defaults to [&quot;http://localhost:3000&quot;, &quot;http://localhost:8501&quot;]</span>
+<span class="sd">            to support common development servers (React, Streamlit).</span>
+<span class="sd">        title: API title shown in OpenAPI documentation. Defaults to</span>
+<span class="sd">            &quot;Lightweight Charts API&quot;.</span>
+<span class="sd">        version: API version string for documentation and versioning.</span>
+<span class="sd">            Defaults to &quot;0.1.0&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        FastAPI: Fully configured FastAPI application instance ready to run</span>
+<span class="sd">            with uvicorn or other ASGI servers.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; app = create_app()</span>
+<span class="sd">        &gt;&gt;&gt; import uvicorn</span>
+<span class="sd">        &gt;&gt;&gt; uvicorn.run(app, host=&quot;0.0.0.0&quot;, port=8000)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create the FastAPI application instance with metadata for documentation</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;REST API and WebSocket backend for TradingView Lightweight Charts&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Configure CORS middleware to allow cross-origin requests from frontend apps</span>
+    <span class="c1"># This is essential for web applications hosted on different domains/ports</span>
+    <span class="k">if</span> <span class="n">cors_origins</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Default origins for common development environments</span>
+        <span class="c1"># localhost:3000 = React/Next.js, localhost:8501 = Streamlit</span>
+        <span class="n">cors_origins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;http://localhost:3000&quot;</span><span class="p">,</span> <span class="s2">&quot;http://localhost:8501&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Add CORS middleware to the application stack</span>
+    <span class="c1"># This middleware intercepts requests and adds appropriate CORS headers</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span>
+        <span class="n">CORSMiddleware</span><span class="p">,</span>
+        <span class="n">allow_origins</span><span class="o">=</span><span class="n">cors_origins</span><span class="p">,</span>  <span class="c1"># Which origins can access the API</span>
+        <span class="n">allow_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Allow cookies and auth headers</span>
+        <span class="n">allow_methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">],</span>  <span class="c1"># Allow all HTTP methods (GET, POST, etc.)</span>
+        <span class="n">allow_headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">],</span>  <span class="c1"># Allow all headers</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Initialize or use provided datafeed service for chart data management</span>
+    <span class="c1"># The datafeed service handles data storage, chunking, and pagination</span>
+    <span class="k">if</span> <span class="n">datafeed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">datafeed</span> <span class="o">=</span> <span class="n">DatafeedService</span><span class="p">()</span>
+
+    <span class="c1"># Store datafeed in app state for access in route handlers via dependency injection</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">datafeed</span> <span class="o">=</span> <span class="n">datafeed</span>
+
+    <span class="c1"># Register API routers with appropriate prefixes and tags for documentation</span>
+    <span class="c1"># Chart router handles REST endpoints for CRUD operations on chart data</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">include_router</span><span class="p">(</span><span class="n">chart_router</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/api/charts&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;charts&quot;</span><span class="p">])</span>
+    <span class="c1"># WebSocket router handles real-time bidirectional communication</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">include_router</span><span class="p">(</span><span class="n">websocket_router</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/ws&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;websocket&quot;</span><span class="p">])</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health_check</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Basic health check endpoint for liveness probes.</span>
+
+<span class="sd">        This is a simple liveness check that confirms the application is running.</span>
+<span class="sd">        It doesn&#39;t verify that all services are functional, just that the app</span>
+<span class="sd">        process is alive and can respond to requests.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Status dictionary with &quot;status&quot; and &quot;version&quot; keys.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; # GET /health</span>
+<span class="sd">            &gt;&gt;&gt; {&quot;status&quot;: &quot;healthy&quot;, &quot;version&quot;: &quot;0.1.0&quot;}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;healthy&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health/ready&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">readiness_check</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Readiness check that verifies DatafeedService is functional.</span>
+
+<span class="sd">        This endpoint performs actual operations on DatafeedService to verify</span>
+<span class="sd">        it&#39;s working correctly, not just that the app started. This is useful</span>
+<span class="sd">        for Kubernetes readiness probes or load balancer health checks that</span>
+<span class="sd">        need to confirm the service can handle traffic.</span>
+
+<span class="sd">        The check creates a temporary test chart, verifies it can be retrieved,</span>
+<span class="sd">        then cleans it up. This ensures the core datafeed operations work.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Detailed health status with the following keys:</span>
+<span class="sd">                - status (str): &quot;ready&quot; if all checks pass, &quot;degraded&quot; otherwise</span>
+<span class="sd">                - version (str): API version</span>
+<span class="sd">                - checks (dict): Individual check results</span>
+<span class="sd">                - errors (list, optional): List of error messages if any checks failed</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; # GET /health/ready</span>
+<span class="sd">            &gt;&gt;&gt; {</span>
+<span class="sd">            ...     &quot;status&quot;: &quot;ready&quot;,</span>
+<span class="sd">            ...     &quot;version&quot;: &quot;0.1.0&quot;,</span>
+<span class="sd">            ...     &quot;checks&quot;: {</span>
+<span class="sd">            ...         &quot;datafeed_initialized&quot;: True,</span>
+<span class="sd">            ...         &quot;datafeed_operational&quot;: True</span>
+<span class="sd">            ...     }</span>
+<span class="sd">            ... }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize check results dictionary to track individual service health</span>
+        <span class="n">checks</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;datafeed_initialized&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;datafeed_operational&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Check if DatafeedService is initialized in app state</span>
+        <span class="c1"># This verifies the application bootstrapped correctly</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">datafeed_service</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">datafeed</span>
+            <span class="n">checks</span><span class="p">[</span><span class="s2">&quot;datafeed_initialized&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datafeed_service</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># app.state.datafeed doesn&#39;t exist - configuration error</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;DatafeedService not found in app.state&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Test DatafeedService operations to ensure it&#39;s not just initialized</span>
+        <span class="c1"># but actually functional and can perform CRUD operations</span>
+        <span class="k">if</span> <span class="n">checks</span><span class="p">[</span><span class="s2">&quot;datafeed_initialized&quot;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Create a test chart with a special ID to verify create operation</span>
+                <span class="n">test_chart_id</span> <span class="o">=</span> <span class="s2">&quot;__health_check_test__&quot;</span>
+                <span class="k">await</span> <span class="n">datafeed_service</span><span class="o">.</span><span class="n">create_chart</span><span class="p">(</span><span class="n">test_chart_id</span><span class="p">)</span>
+
+                <span class="c1"># Verify we can retrieve the chart we just created (read operation)</span>
+                <span class="n">chart</span> <span class="o">=</span> <span class="k">await</span> <span class="n">datafeed_service</span><span class="o">.</span><span class="n">get_chart</span><span class="p">(</span><span class="n">test_chart_id</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">chart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">checks</span><span class="p">[</span><span class="s2">&quot;datafeed_operational&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="c1"># Clean up - remove test chart from internal state to avoid pollution</span>
+                <span class="c1"># We access internal state directly here since this is a health check</span>
+                <span class="k">async</span> <span class="k">with</span> <span class="n">datafeed_service</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+                    <span class="n">datafeed_service</span><span class="o">.</span><span class="n">_charts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">test_chart_id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1"># Any exception during operations means the service is not ready</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DatafeedService operation failed: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Determine overall status based on all checks</span>
+        <span class="c1"># Service is only &quot;ready&quot; if ALL checks pass</span>
+        <span class="n">all_checks_passed</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">checks</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;ready&quot;</span> <span class="k">if</span> <span class="n">all_checks_passed</span> <span class="k">else</span> <span class="s2">&quot;degraded&quot;</span>
+
+        <span class="c1"># Build response with detailed check information</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">version</span><span class="p">,</span>
+            <span class="s2">&quot;checks&quot;</span><span class="p">:</span> <span class="n">checks</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Only include errors key if there are actual errors</span>
+        <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">[</span><span class="s2">&quot;errors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">errors</span>
+
+        <span class="k">return</span> <span class="n">response</span>
+
+    <span class="k">return</span> <span class="n">app</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Streamlit Lightweight Charts Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
