@@ -37,7 +37,9 @@ dependencies = [
     "pydantic>=2.0.0",
     "pandas>=2.0.0",
     "numpy>=1.24.0",
-    "lightweight-charts-pro @ file:///Users/nandkapadia/lightweight-charts-pro-python",
+    # Note: lightweight-charts-pro is an optional dependency for local development
+    # It's not required for documentation builds or basic API functionality
+    # "lightweight-charts-pro @ file:///Users/nandkapadia/lightweight-charts-pro-python",
 ]
 
 [project.optional-dependencies]
