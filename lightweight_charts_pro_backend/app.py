@@ -1,11 +1,12 @@
-"""FastAPI application factory for Lightweight Charts Backend.
+"""FastAPI application factory for the Lightweight Charts backend.
 
-This module provides the create_app factory function that initializes and
-configures a FastAPI application with chart endpoints, WebSocket support,
-and CORS middleware for real-time TradingView Lightweight Charts data.
+This module exposes helpers to build a FastAPI application that serves chart
+data over both REST and WebSocket interfaces while applying sensible defaults
+such as CORS configuration and health probes.
 """
 
 # Standard Imports
+from contextlib import asynccontextmanager
 
 # Third Party Imports
 from fastapi import FastAPI
@@ -13,8 +14,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Local Imports
 from lightweight_charts_pro_backend.api import chart_router
+from lightweight_charts_pro_backend.config import get_settings
 from lightweight_charts_pro_backend.services import DatafeedService
 from lightweight_charts_pro_backend.websocket import websocket_router
+from lightweight_charts_pro_backend.websocket.handlers import manager as websocket_manager
 
 
 def create_app(
@@ -23,38 +26,46 @@ def create_app(
     title: str = "Lightweight Charts API",
     version: str = "0.1.0",
 ) -> FastAPI:
-    """Create and configure FastAPI application with chart endpoints and WebSocket support.
-
-    This factory function initializes a FastAPI application configured for
-    serving TradingView Lightweight Charts data. It sets up CORS middleware,
-    initializes the datafeed service, and registers API and WebSocket routers.
+    """Build a FastAPI application configured for chart REST and WebSocket APIs.
 
     Args:
-        datafeed: Optional DatafeedService instance for managing chart data.
-            If None, creates a new default instance. This allows for custom
-            datafeed implementations or dependency injection in tests.
-        cors_origins: List of allowed CORS origins as strings. If None,
-            defaults to ["http://localhost:3000", "http://localhost:8501"]
-            to support common development servers (React, Streamlit).
-        title: API title shown in OpenAPI documentation. Defaults to
-            "Lightweight Charts API".
-        version: API version string for documentation and versioning.
-            Defaults to "0.1.0".
+        datafeed (DatafeedService | None): Preconfigured datafeed service for dependency
+            injection. When ``None``, a default ``DatafeedService`` is created.
+        cors_origins (list[str] | None): Allowed origins for cross-origin requests.
+            Defaults to common development origins when omitted.
+        title (str): Title shown in generated OpenAPI documentation pages.
+        version (str): API semantic version string shown in metadata and health checks.
 
     Returns:
-        FastAPI: Fully configured FastAPI application instance ready to run
-            with uvicorn or other ASGI servers.
+        FastAPI: Configured FastAPI application instance ready to serve requests.
 
-    Example:
+    Examples:
         >>> app = create_app()
         >>> import uvicorn
         >>> uvicorn.run(app, host="0.0.0.0", port=8000)
     """
-    # Create the FastAPI application instance with metadata for documentation
+
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        """Manage application lifespan events (startup/shutdown).
+
+        Args:
+            app: FastAPI application instance.
+
+        Yields:
+            None: Application runs between startup and shutdown.
+        """
+        # Startup: nothing special needed yet
+        yield
+        # Shutdown: gracefully close WebSocket connections
+        await websocket_manager.shutdown()
+
+    # Create the FastAPI application instance with metadata and lifespan handler
     app = FastAPI(
         title=title,
         version=version,
         description="REST API and WebSocket backend for TradingView Lightweight Charts",
+        lifespan=lifespan,
     )
 
     # Configure CORS middleware to allow cross-origin requests from frontend apps
@@ -77,7 +88,8 @@ def create_app(
     # Initialize or use provided datafeed service for chart data management
     # The datafeed service handles data storage, chunking, and pagination
     if datafeed is None:
-        datafeed = DatafeedService()
+        settings = get_settings()
+        datafeed = DatafeedService(chunk_size_threshold=settings.chunk_size_threshold)
 
     # Store datafeed in app state for access in route handlers via dependency injection
     app.state.datafeed = datafeed
@@ -90,50 +102,22 @@ def create_app(
 
     @app.get("/health")
     async def health_check():
-        """Basic health check endpoint for liveness probes.
-
-        This is a simple liveness check that confirms the application is running.
-        It doesn't verify that all services are functional, just that the app
-        process is alive and can respond to requests.
+        """Report liveness of the application instance.
 
         Returns:
-            dict: Status dictionary with "status" and "version" keys.
-
-        Example:
-            >>> # GET /health
-            >>> {"status": "healthy", "version": "0.1.0"}
+            dict: Dictionary containing ``status`` and ``version`` keys to indicate
+            that the process is running.
         """
+        # Simple heartbeat response without deep dependency checks
         return {"status": "healthy", "version": version}
 
     @app.get("/health/ready")
     async def readiness_check():
-        """Readiness check that verifies DatafeedService is functional.
-
-        This endpoint performs actual operations on DatafeedService to verify
-        it's working correctly, not just that the app started. This is useful
-        for Kubernetes readiness probes or load balancer health checks that
-        need to confirm the service can handle traffic.
-
-        The check creates a temporary test chart, verifies it can be retrieved,
-        then cleans it up. This ensures the core datafeed operations work.
+        """Verify readiness by exercising the ``DatafeedService`` dependencies.
 
         Returns:
-            dict: Detailed health status with the following keys:
-                - status (str): "ready" if all checks pass, "degraded" otherwise
-                - version (str): API version
-                - checks (dict): Individual check results
-                - errors (list, optional): List of error messages if any checks failed
-
-        Example:
-            >>> # GET /health/ready
-            >>> {
-            ...     "status": "ready",
-            ...     "version": "0.1.0",
-            ...     "checks": {
-            ...         "datafeed_initialized": True,
-            ...         "datafeed_operational": True
-            ...     }
-            ... }
+            dict: Health payload containing overall ``status``, ``version``, detailed
+            check booleans, and optional error messages when a check fails.
         """
         # Initialize check results dictionary to track individual service health
         checks = {
@@ -164,10 +148,8 @@ def create_app(
                 if chart is not None:
                     checks["datafeed_operational"] = True
 
-                # Clean up - remove test chart from internal state to avoid pollution
-                # We access internal state directly here since this is a health check
-                async with datafeed_service._lock:
-                    datafeed_service._charts.pop(test_chart_id, None)
+                # Clean up - remove test chart and associated resources
+                await datafeed_service.delete_chart(test_chart_id)
             except Exception as e:
                 # Any exception during operations means the service is not ready
                 errors.append(f"DatafeedService operation failed: {e!s}")

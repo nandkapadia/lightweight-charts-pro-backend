@@ -1,18 +1,17 @@
-"""Custom middleware for error handling, logging, and request tracking.
+"""Middleware for error handling, structured logging, and request tracking."""
 
-This module provides middleware for structured error responses,
-request logging, and correlation ID tracking.
-"""
-
+# Standard Imports
 import time
 from collections.abc import Callable
 
+# Third Party Imports
 from fastapi import Request, Response, status
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.middleware.base import BaseHTTPMiddleware
 
+# Local Imports
 from lightweight_charts_pro_backend.logging_config import (
     clear_request_id,
     get_logger,
@@ -23,23 +22,20 @@ logger = get_logger(__name__)
 
 
 class ErrorHandlerMiddleware(BaseHTTPMiddleware):
-    """Middleware for catching and handling exceptions gracefully.
-
-    Provides structured JSON error responses for common exception types
-    and logs errors with full context for debugging.
-    """
+    """Catch exceptions and return structured JSON responses."""
 
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
-        """Process request and handle exceptions.
+        """Process a request and normalize any raised exceptions.
 
         Args:
-            request: Incoming HTTP request.
-            call_next: Next middleware or route handler.
+            request (Request): Incoming HTTP request object.
+            call_next (Callable): Next handler in the ASGI middleware chain.
 
         Returns:
-            Response: HTTP response with proper error handling.
+            Response: Successful response or formatted error payload.
         """
         try:
+            # Attempt to process the request normally
             response = await call_next(request)
             return response
 
@@ -139,21 +135,17 @@ class ErrorHandlerMiddleware(BaseHTTPMiddleware):
 
 
 class RequestLoggingMiddleware(BaseHTTPMiddleware):
-    """Middleware for logging HTTP requests and responses.
-
-    Adds request ID tracking and logs request/response details
-    for monitoring and debugging.
-    """
+    """Log HTTP request/response details and manage request IDs."""
 
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
-        """Process request with logging and timing.
+        """Process a request, logging lifecycle details and timing.
 
         Args:
-            request: Incoming HTTP request.
-            call_next: Next middleware or route handler.
+            request (Request): Incoming HTTP request.
+            call_next (Callable): Next middleware or route handler.
 
         Returns:
-            Response: HTTP response with added headers.
+            Response: Response augmented with request ID headers.
         """
         # Generate and set request ID
         request_id = request.headers.get("X-Request-ID")
@@ -202,13 +194,16 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
 
 
 class RateLimitExceededError(Exception):
-    """Exception raised when rate limit is exceeded."""
+    """Custom exception raised when rate limit thresholds are exceeded."""
 
     def __init__(self, message: str = "Rate limit exceeded"):
-        """Initialize rate limit error.
+        """Initialize the exception with a user-friendly message.
 
         Args:
-            message: Error message.
+            message (str): Description of the rate limit violation.
+
+        Returns:
+            None: The message is stored on the instance.
         """
         self.message = message
         super().__init__(self.message)

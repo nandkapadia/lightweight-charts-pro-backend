@@ -1,23 +1,38 @@
-"""Tests for API endpoints."""
+"""Integration tests for the chart REST API endpoints."""
 
+# Standard Imports
+
+# Third Party Imports
 import pytest
 from fastapi.testclient import TestClient
 
+# Local Imports
 from lightweight_charts_pro_backend.app import create_app
 
 
 @pytest.fixture
 def client():
-    """Create a test client for the API."""
+    """Create a FastAPI test client for exercising the API endpoints.
+
+    Returns:
+        TestClient: Client bound to an application instance.
+    """
     app = create_app()
     return TestClient(app)
 
 
 class TestHealthEndpoint:
-    """Tests for health check endpoint."""
+    """Validate liveness and readiness endpoint behaviors."""
 
     def test_health_check(self, client):
-        """Test the health check endpoint returns healthy status."""
+        """Ensure the health endpoint reports a healthy status.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate HTTP status and payload.
+        """
         response = client.get("/health")
         assert response.status_code == 200
         assert response.json()["status"] == "healthy"
@@ -25,17 +40,31 @@ class TestHealthEndpoint:
 
 
 class TestChartEndpoints:
-    """Tests for chart API endpoints."""
+    """Exercise chart creation and retrieval API endpoints."""
 
     def test_create_chart(self, client):
-        """Test creating a new chart."""
+        """Create a new chart and verify the response payload.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions confirm HTTP status and chart ID.
+        """
         response = client.post("/api/charts/test-chart")
         assert response.status_code == 200
         data = response.json()
         assert data["chartId"] == "test-chart"
 
     def test_create_chart_with_options(self, client):
-        """Test creating a chart with options."""
+        """Create a chart while supplying custom options.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate successful creation.
+        """
         response = client.post(
             "/api/charts/test-chart",
             params={"options": '{"width": 800}'},
@@ -43,12 +72,26 @@ class TestChartEndpoints:
         assert response.status_code == 200
 
     def test_get_chart_not_found(self, client):
-        """Test getting a non-existent chart returns 404."""
+        """Request a missing chart and expect a 404 response.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate HTTP status handling.
+        """
         response = client.get("/api/charts/missing-chart")
         assert response.status_code == 404
 
     def test_get_chart_after_create(self, client):
-        """Test getting a chart after creating it."""
+        """Retrieve a chart after creating it to ensure persistence.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate retrieval success.
+        """
         # Create chart first
         client.post("/api/charts/test-chart")
 
@@ -57,7 +100,14 @@ class TestChartEndpoints:
         assert response.status_code == 200
 
     def test_set_series_data(self, client):
-        """Test setting series data."""
+        """Set series data on a chart and verify metadata.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions confirm series count and identifiers.
+        """
         # Create chart
         client.post("/api/charts/test-chart")
 
@@ -79,7 +129,14 @@ class TestChartEndpoints:
         assert data["count"] == 2
 
     def test_get_series_data(self, client):
-        """Test getting series data."""
+        """Fetch series data and confirm chunking behavior for small datasets.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions verify returned payload.
+        """
         # Create chart and add data
         client.post("/api/charts/test-chart")
         client.post(
@@ -99,7 +156,14 @@ class TestChartEndpoints:
         assert data["totalCount"] == 10
 
     def test_get_history(self, client):
-        """Test getting historical data."""
+        """Request historical data and ensure chunking metadata is present.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate pagination indicators.
+        """
         # Create chart with large dataset
         client.post("/api/charts/test-chart")
         client.post(
@@ -122,7 +186,14 @@ class TestChartEndpoints:
         assert data["hasMoreBefore"] is True
 
     def test_get_history_batch(self, client):
-        """Test batch history request."""
+        """Request history through the batch endpoint using POST payload.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions confirm presence of data in response.
+        """
         # Create chart with data
         client.post("/api/charts/test-chart")
         client.post(
@@ -150,10 +221,17 @@ class TestChartEndpoints:
 
 
 class TestChartDataChunking:
-    """Tests for smart chunking behavior."""
+    """Verify smart chunking logic across dataset sizes."""
 
     def test_small_dataset_not_chunked(self, client):
-        """Test that small datasets are not chunked."""
+        """Ensure datasets below threshold are returned without chunking.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions check flags and data length.
+        """
         client.post("/api/charts/test-chart")
         client.post(
             "/api/charts/test-chart/data/line1",
@@ -170,7 +248,14 @@ class TestChartDataChunking:
         assert len(data["data"]) == 100
 
     def test_large_dataset_chunked(self, client):
-        """Test that large datasets are chunked."""
+        """Ensure datasets above threshold are chunked on initial fetch.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions verify chunking flags and counts.
+        """
         client.post("/api/charts/test-chart")
         client.post(
             "/api/charts/test-chart/data/line1",
@@ -189,7 +274,14 @@ class TestChartDataChunking:
         assert data["hasMoreBefore"] is True
 
     def test_pagination_through_chunks(self, client):
-        """Test paginating through chunks of data."""
+        """Paginate through sequential history chunks to ensure ordering.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate sequential chunk retrieval.
+        """
         client.post("/api/charts/test-chart")
         client.post(
             "/api/charts/test-chart/data/line1",
@@ -216,21 +308,42 @@ class TestChartDataChunking:
 
 
 class TestErrorHandling:
-    """Tests for error handling and validation."""
+    """Validate error responses for invalid inputs."""
 
     def test_get_series_from_nonexistent_chart(self, client):
-        """Test getting series from non-existent chart returns 404."""
+        """Request series data from a missing chart and expect 404.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions ensure appropriate status code.
+        """
         response = client.get("/api/charts/nonexistent/data/0/line1")
         assert response.status_code == 404
 
     def test_get_series_nonexistent_series(self, client):
-        """Test getting non-existent series returns 404."""
+        """Request a missing series and expect a 404 response.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions verify error handling.
+        """
         client.post("/api/charts/test-chart")
         response = client.get("/api/charts/test-chart/data/0/nonexistent")
         assert response.status_code == 404
 
     def test_set_series_invalid_data_format(self, client):
-        """Test setting series with invalid data format."""
+        """Attempt to set series data with invalid payload formats.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions check validation errors.
+        """
         client.post("/api/charts/test-chart")
         response = client.post(
             "/api/charts/test-chart/data/line1",
@@ -243,7 +356,14 @@ class TestErrorHandling:
         assert response.status_code == 422  # Validation error
 
     def test_set_series_missing_required_fields(self, client):
-        """Test setting series with missing required fields."""
+        """Attempt to set series data missing required fields.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions verify validation response codes.
+        """
         client.post("/api/charts/test-chart")
         response = client.post(
             "/api/charts/test-chart/data/line1",
@@ -255,7 +375,14 @@ class TestErrorHandling:
         assert response.status_code == 422
 
     def test_get_history_invalid_params(self, client):
-        """Test history with invalid parameters."""
+        """Call history endpoint with invalid parameter types.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions confirm validation failure.
+        """
         client.post("/api/charts/test-chart")
         response = client.get(
             "/api/charts/test-chart/history/0/line1",
@@ -264,7 +391,14 @@ class TestErrorHandling:
         assert response.status_code == 422
 
     def test_batch_history_empty_request(self, client):
-        """Test batch history with empty request body."""
+        """Submit an empty payload to the batch history endpoint.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions verify request validation.
+        """
         client.post("/api/charts/test-chart")
         response = client.post(
             "/api/charts/test-chart/history",
@@ -274,10 +408,17 @@ class TestErrorHandling:
 
 
 class TestE2EWorkflows:
-    """End-to-end workflow tests."""
+    """End-to-end scenarios covering full chart lifecycles."""
 
     def test_full_chart_lifecycle(self, client):
-        """Test complete chart lifecycle: create -> add data -> query -> paginate."""
+        """Run through chart lifecycle including creation, data load, and pagination.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate each step of the workflow.
+        """
         # 1. Create chart
         response = client.post("/api/charts/workflow-chart")
         assert response.status_code == 200
@@ -321,7 +462,14 @@ class TestE2EWorkflows:
         assert all(d["time"] < first_time for d in history_data["data"])
 
     def test_multi_pane_chart(self, client):
-        """Test chart with multiple panes (main + indicators)."""
+        """Create a multi-pane chart and verify data placement across panes.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions confirm panes and series counts.
+        """
         client.post("/api/charts/multi-pane")
 
         # Main price series (pane 0)
@@ -364,7 +512,14 @@ class TestE2EWorkflows:
         assert len(chart_data["panes"]) == 3
 
     def test_concurrent_chart_access(self, client):
-        """Test that multiple charts can coexist."""
+        """Ensure multiple charts can be created and accessed independently.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate chart-specific data isolation.
+        """
         charts = ["chart-a", "chart-b", "chart-c"]
 
         # Create all charts

@@ -1,13 +1,23 @@
 """WebSocket handlers for real-time chart updates."""
 
+# Standard Imports
 import asyncio
 import json
 import logging
-import re
 import time
 from typing import TYPE_CHECKING
 
+# Third Party Imports
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+
+# Local Imports
+from lightweight_charts_pro_backend.exceptions import DatafeedException, ValidationError
+from lightweight_charts_pro_backend.validation import (
+    validate_before_time,
+    validate_count,
+    validate_identifier,
+    validate_pane_id,
+)
 
 if TYPE_CHECKING:
     from lightweight_charts_pro_backend.services import DatafeedService
@@ -15,166 +25,113 @@ if TYPE_CHECKING:
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-# Validation constants
-MAX_ID_LENGTH = 128
-ID_PATTERN = re.compile(r"^[a-zA-Z0-9_\-\.]+$")
-MAX_HISTORY_COUNT = 10000
-
-
-def validate_identifier(value: str | None, field_name: str) -> str | None:
-    """Validate an identifier (chart_id, series_id).
-
-    Args:
-        value: The identifier to validate.
-        field_name: Name of the field for error messages.
-
-    Returns:
-        The validated identifier or None if value is None.
-
-    Raises:
-        ValueError: If validation fails.
-    """
-    if value is None:
-        return None
-
-    if not isinstance(value, str):
-        raise TypeError(f"{field_name} must be a string")
-
-    if not value:
-        raise ValueError(f"{field_name} cannot be empty")
-
-    if len(value) > MAX_ID_LENGTH:
-        raise ValueError(f"{field_name} cannot exceed {MAX_ID_LENGTH} characters")
-
-    if not ID_PATTERN.match(value):
-        raise ValueError(
-            f"{field_name} contains invalid characters. "
-            "Only alphanumeric, underscore, hyphen, and dot allowed."
-        )
-
-    # Prevent path traversal
-    if ".." in value or value.startswith(("/", "\\")):
-        raise ValueError(f"Invalid {field_name} format")
-
-    return value
-
-
-def validate_pane_id(value: int | None) -> int:
-    """Validate pane_id.
-
-    Args:
-        value: The pane_id to validate.
-
-    Returns:
-        The validated pane_id (default 0).
-
-    Raises:
-        ValueError: If validation fails.
-    """
-    if value is None:
-        return 0
-
-    if not isinstance(value, int):
-        raise TypeError("paneId must be an integer")
-
-    if value < 0 or value > 100:
-        raise ValueError("paneId must be between 0 and 100")
-
-    return value
-
-
-def validate_count(value: int | None) -> int:
-    """Validate count parameter.
-
-    Args:
-        value: The count to validate.
-
-    Returns:
-        The validated count (default 500).
-
-    Raises:
-        ValueError: If validation fails.
-    """
-    if value is None:
-        return 500
-
-    if not isinstance(value, int):
-        raise TypeError("count must be an integer")
-
-    if value <= 0 or value > MAX_HISTORY_COUNT:
-        raise ValueError(f"count must be between 1 and {MAX_HISTORY_COUNT}")
-
-    return value
-
-
-def validate_before_time(value: int | None) -> int | None:
-    """Validate before_time parameter.
-
-    Args:
-        value: The before_time to validate.
-
-    Returns:
-        The validated before_time.
-
-    Raises:
-        ValueError: If validation fails.
-    """
-    if value is None:
-        return None
-
-    if not isinstance(value, int):
-        raise TypeError("beforeTime must be an integer")
-
-    if value < 0:
-        raise ValueError("beforeTime must be >= 0")
-
-    return value
-
 
 class ConnectionManager:
-    """Manages WebSocket connections for chart updates.
-
-    Thread-safe connection management using asyncio.Lock to prevent
-    race conditions during concurrent connect/disconnect operations.
-    """
+    """Manage WebSocket connections for chart updates."""
 
     def __init__(self, timeout_seconds: int = 300):
-        """Initialize connection manager.
+        """Initialize connection tracking structures and timeout settings.
 
         Args:
-            timeout_seconds: Connection timeout in seconds (default: 5 minutes).
+            timeout_seconds (int): Idle timeout before connections are cleaned up.
+
+        Returns:
+            None: The manager initializes internal tracking structures.
         """
         self._connections: dict[str, set[WebSocket]] = {}
         self._connection_times: dict[tuple[str, int], float] = {}  # (chart_id, ws_id) -> timestamp
         self._lock = asyncio.Lock()
         self._timeout_seconds = timeout_seconds
         self._cleanup_task: asyncio.Task | None = None
+        self._ping_task: asyncio.Task | None = None
+        self._ping_interval_seconds = 30  # Send pings every 30 seconds
 
     async def connect(self, chart_id: str, websocket: WebSocket) -> None:
-        """Accept and track a WebSocket connection.
+        """Accept and track a new WebSocket connection.
 
         Args:
-            chart_id: Chart identifier.
-            websocket: WebSocket connection.
+            chart_id (str): Chart identifier for the connection.
+            websocket (WebSocket): Incoming WebSocket connection object.
+
+        Returns:
+            None: Connection is accepted and tracked internally.
         """
         await websocket.accept()
         async with self._lock:
             if chart_id not in self._connections:
                 self._connections[chart_id] = set()
             self._connections[chart_id].add(websocket)
-            # Track connection time for timeout cleanup
+            # Track last activity time for timeout cleanup
             self._connection_times[(chart_id, id(websocket))] = time.time()
 
         # Start cleanup task if not already running
         if self._cleanup_task is None or self._cleanup_task.done():
             self._cleanup_task = asyncio.create_task(self._cleanup_stale_connections())
 
-    async def disconnect(self, chart_id: str, websocket: WebSocket) -> None:
-        """Remove a WebSocket connection.
+        # Start ping task if not already running (keeps passive listeners alive)
+        if self._ping_task is None or self._ping_task.done():
+            self._ping_task = asyncio.create_task(self._send_periodic_pings())
+
+    async def update_activity(self, chart_id: str, websocket: WebSocket) -> None:
+        """Update last activity timestamp for a connection.
 
         Args:
-            chart_id: Chart identifier.
-            websocket: WebSocket connection.
+            chart_id (str): Chart identifier for the connection.
+            websocket (WebSocket): WebSocket connection to update.
+
+        Returns:
+            None: Activity timestamp is updated.
+        """
+        async with self._lock:
+            self._connection_times[(chart_id, id(websocket))] = time.time()
+
+    async def shutdown(self) -> None:
+        """Gracefully shutdown the connection manager.
+
+        Cancels the cleanup and ping tasks and closes all active connections.
+
+        Returns:
+            None: All resources are cleaned up.
+        """
+        # Cancel the cleanup task
+        if self._cleanup_task and not self._cleanup_task.done():
+            self._cleanup_task.cancel()
+            try:
+                await self._cleanup_task
+            except asyncio.CancelledError:
+                logger.info("Cleanup task cancelled successfully")
+
+        # Cancel the ping task
+        if self._ping_task and not self._ping_task.done():
+            self._ping_task.cancel()
+            try:
+                await self._ping_task
+            except asyncio.CancelledError:
+                logger.info("Ping task cancelled successfully")
+
+        # Close all active connections
+        async with self._lock:
+            all_connections = []
+            for connections in self._connections.values():
+                all_connections.extend(connections)
+
+        for websocket in all_connections:
+            try:
+                await websocket.close(code=1001, reason="Server shutting down")
+            except Exception as e:
+                logger.warning(f"Error closing connection during shutdown: {e}")
+
+        logger.info(f"Closed {len(all_connections)} WebSocket connections during shutdown")
+
+    async def disconnect(self, chart_id: str, websocket: WebSocket) -> None:
+        """Remove a WebSocket connection from tracking.
+
+        Args:
+            chart_id (str): Chart identifier for the connection.
+            websocket (WebSocket): WebSocket instance to remove.
+
+        Returns:
+            None: The connection is removed from internal registries.
         """
         async with self._lock:
             if chart_id in self._connections:
@@ -185,11 +142,14 @@ class ConnectionManager:
             self._connection_times.pop((chart_id, id(websocket)), None)
 
     async def broadcast(self, chart_id: str, message: dict) -> None:
-        """Broadcast message to all connections for a chart.
+        """Broadcast a message to all connections for a chart.
 
         Args:
-            chart_id: Chart identifier.
-            message: Message to broadcast.
+            chart_id (str): Chart identifier determining recipients.
+            message (dict): JSON-serializable payload to send.
+
+        Returns:
+            None: Messages are sent to each tracked connection.
         """
         async with self._lock:
             if chart_id not in self._connections:
@@ -201,6 +161,9 @@ class ConnectionManager:
         for websocket in connections:
             try:
                 await websocket.send_json(message)
+                # Update activity timestamp on successful send to prevent passive listeners from timing out
+                async with self._lock:
+                    self._connection_times[(chart_id, id(websocket))] = time.time()
             except (WebSocketDisconnect, ConnectionError, RuntimeError) as e:
                 # Expected disconnection errors
                 logger.debug("Client disconnected during broadcast: %s", e)
@@ -220,10 +183,10 @@ class ConnectionManager:
                     self._connection_times.pop((chart_id, id(websocket)), None)
 
     async def _cleanup_stale_connections(self) -> None:
-        """Background task to cleanup stale WebSocket connections.
+        """Close stale WebSocket connections exceeding idle timeout.
 
-        Periodically checks for connections that haven't received activity
-        within the timeout period and closes them.
+        Returns:
+            None: Stale connections are closed on a periodic schedule.
         """
         while True:
             try:
@@ -258,32 +221,65 @@ class ConnectionManager:
             except Exception as e:
                 logger.error(f"Error in cleanup task: {e}", exc_info=True)
 
+    async def _send_periodic_pings(self) -> None:
+        """Send periodic ping messages to keep connections alive.
+
+        This prevents passive listeners (read-only clients) from being
+        incorrectly closed as "stale" when they only receive broadcasts.
+
+        Returns:
+            None: Pings are sent on a periodic schedule.
+        """
+        while True:
+            try:
+                await asyncio.sleep(self._ping_interval_seconds)
+
+                # Get all active connections
+                async with self._lock:
+                    all_connections = []
+                    for chart_id, connections in self._connections.items():
+                        for ws in connections:
+                            all_connections.append((chart_id, ws))
+
+                # Send pings outside the lock to avoid blocking
+                for chart_id, websocket in all_connections:
+                    try:
+                        await websocket.send_json({"type": "ping", "timestamp": time.time()})
+                        # Update activity time so ping doesn't count as idle
+                        async with self._lock:
+                            self._connection_times[(chart_id, id(websocket))] = time.time()
+                    except Exception as e:
+                        # Connection probably dead, will be cleaned up by cleanup task
+                        logger.debug(f"Failed to send ping to {chart_id}: {e}")
+
+            except asyncio.CancelledError:
+                logger.info("Ping task cancelled")
+                break
+            except Exception as e:
+                logger.error(f"Error in ping task: {e}", exc_info=True)
+
 
 manager = ConnectionManager()
 
 
 @router.websocket("/charts/{chart_id}")
 async def chart_websocket(websocket: WebSocket, chart_id: str):
-    """WebSocket endpoint for real-time chart updates.
-
-    Supports the following message types:
-    - subscribe: Subscribe to chart updates
-    - request_history: Request historical data
-    - update_data: Receive real-time data updates
+    """Handle WebSocket connections for streaming chart updates.
 
     Args:
-        websocket: WebSocket connection.
-        chart_id: Chart identifier.
+        websocket (WebSocket): Active WebSocket connection from client.
+        chart_id (str): Chart identifier extracted from the URL path.
+
+    Returns:
+        None: The coroutine manages the connection lifecycle.
     """
     # Validate chart_id before accepting connection
     try:
-        chart_id = validate_identifier(chart_id, "chart_id") or ""
-        if not chart_id:
-            await websocket.close(code=1008, reason="Invalid chart_id")
-            return
-    except ValueError as e:
+        chart_id = validate_identifier(chart_id, "chart_id")
+    except (ValidationError, ValueError, TypeError) as e:
         await websocket.accept()
-        await websocket.close(code=1008, reason=str(e))
+        error_msg = e.message if isinstance(e, ValidationError) else str(e)
+        await websocket.close(code=1008, reason=error_msg)
         return
 
     await manager.connect(chart_id, websocket)
@@ -324,6 +320,8 @@ async def chart_websocket(websocket: WebSocket, chart_id: str):
             try:
                 data = await websocket.receive_text()
                 message = json.loads(data)
+                # Update activity timestamp on every message to prevent timeout
+                await manager.update_activity(chart_id, websocket)
             except json.JSONDecodeError as e:
                 await websocket.send_json(
                     {
@@ -340,57 +338,86 @@ async def chart_websocket(websocket: WebSocket, chart_id: str):
                 try:
                     pane_id = validate_pane_id(message.get("paneId"))
                     series_id = validate_identifier(message.get("seriesId"), "seriesId")
-                    before_time = validate_before_time(message.get("beforeTime"))
+                    # beforeTime can be None (fetch latest) or 0 (fetch from beginning)
+                    # Only validate if provided, otherwise use None to fetch latest
+                    raw_before_time = message.get("beforeTime")
+                    before_time = (
+                        validate_before_time(raw_before_time)
+                        if raw_before_time is not None
+                        else None
+                    )
                     count = validate_count(message.get("count"))
-                except ValueError as e:
-                    await websocket.send_json({"type": "error", "error": str(e)})
-                    continue
 
-                if series_id and before_time is not None:
-                    result = await datafeed.get_history(
+                    if series_id is not None:
+                        result = await datafeed.get_history(
+                            chart_id=chart_id,
+                            pane_id=pane_id,
+                            series_id=series_id,
+                            before_time=before_time,  # Pass None through to get latest chunk
+                            count=count,
+                        )
+
+                        await websocket.send_json(
+                            {
+                                "type": "history_response",
+                                "chartId": chart_id,
+                                "paneId": pane_id,
+                                "seriesId": series_id,
+                                **result,
+                            }
+                        )
+                    else:
+                        await websocket.send_json(
+                            {"type": "error", "error": "seriesId is required"}
+                        )
+                except (ValidationError, DatafeedException) as e:
+                    await websocket.send_json(
+                        {
+                            "type": "error",
+                            "error": e.message,
+                            "errorCode": e.error_code,
+                        }
+                    )
+                except (ValueError, TypeError) as e:
+                    await websocket.send_json({"type": "error", "error": str(e)})
+
+            elif msg_type == "get_initial_data":
+                # Handle initial data request with validation
+                # seriesId is optional - if omitted, returns whole chart or whole pane
+                try:
+                    # Validate paneId (defaults to 0 if None)
+                    raw_pane_id = message.get("paneId")
+                    pane_id = validate_pane_id(raw_pane_id) if raw_pane_id is not None else None
+
+                    # Validate seriesId only if provided (optional)
+                    raw_series_id = message.get("seriesId")
+                    series_id = (
+                        validate_identifier(raw_series_id, "seriesId") if raw_series_id else None
+                    )
+
+                    result = await datafeed.get_initial_data(
                         chart_id=chart_id,
                         pane_id=pane_id,
                         series_id=series_id,
-                        before_time=before_time,
-                        count=count,
                     )
 
                     await websocket.send_json(
                         {
-                            "type": "history_response",
+                            "type": "initial_data_response",
                             "chartId": chart_id,
-                            "paneId": pane_id,
-                            "seriesId": series_id,
                             **result,
                         }
                     )
-                else:
+                except (ValidationError, DatafeedException) as e:
                     await websocket.send_json(
-                        {"type": "error", "error": "seriesId and beforeTime are required"}
+                        {
+                            "type": "error",
+                            "error": e.message,
+                            "errorCode": e.error_code,
+                        }
                     )
-
-            elif msg_type == "get_initial_data":
-                # Handle initial data request with validation
-                try:
-                    pane_id = validate_pane_id(message.get("paneId"))
-                    series_id = validate_identifier(message.get("seriesId"), "seriesId")
-                except ValueError as e:
+                except (ValueError, TypeError) as e:
                     await websocket.send_json({"type": "error", "error": str(e)})
-                    continue
-
-                result = await datafeed.get_initial_data(
-                    chart_id=chart_id,
-                    pane_id=pane_id if pane_id else None,
-                    series_id=series_id,
-                )
-
-                await websocket.send_json(
-                    {
-                        "type": "initial_data_response",
-                        "chartId": chart_id,
-                        **result,
-                    }
-                )
 
             elif msg_type == "ping":
                 # Handle ping for connection health

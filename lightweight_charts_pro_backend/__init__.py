@@ -1,23 +1,12 @@
-"""Lightweight Charts Pro Backend - FastAPI backend for TradingView Lightweight Charts.
+"""FastAPI backend package for delivering TradingView Lightweight Charts data.
 
-This package provides a production-ready REST API and WebSocket server for managing
-TradingView Lightweight Charts data. It includes support for:
-
-- Real-time data updates via WebSocket
-- Infinite history loading with smart chunking
-- Multiple chart panes and series types
-- Efficient data management for large datasets
-- Comprehensive request validation and security
-
-The package is framework-agnostic and can be used with any frontend framework
-(React, Vue, Svelte, etc.) or with Streamlit for rapid prototyping.
-
-Example:
-    >>> from lightweight_charts_pro_backend import create_app
-    >>> import uvicorn
-    >>> app = create_app()
-    >>> uvicorn.run(app, host="0.0.0.0", port=8000)
+This package bundles REST and WebSocket capabilities, datafeed management, and
+production-ready configuration helpers to serve chart data to various frontends.
 """
+
+# Standard Imports
+
+# Third Party Imports
 
 # Local Imports
 from lightweight_charts_pro_backend.app import create_app

@@ -1,7 +1,11 @@
-"""Tests for DatafeedService."""
+"""Unit tests for the in-memory ``DatafeedService`` implementation."""
 
+# Standard Imports
+
+# Third Party Imports
 import pytest
 
+# Local Imports
 from lightweight_charts_pro_backend.services.datafeed import (
     ChartState,
     DatafeedService,
@@ -10,10 +14,14 @@ from lightweight_charts_pro_backend.services.datafeed import (
 
 
 class TestSeriesData:
-    """Tests for SeriesData class."""
+    """Validate behaviors of the ``SeriesData`` container."""
 
     def test_creation(self):
-        """Test basic creation."""
+        """Create a default series and confirm initial attributes.
+
+        Returns:
+            None: Assertions verify default values.
+        """
         series = SeriesData(series_id="test", series_type="line")
         assert series.series_id == "test"
         assert series.series_type == "line"
@@ -21,13 +29,21 @@ class TestSeriesData:
         assert series.options == {}
 
     def test_creation_with_data(self):
-        """Test creation with data."""
+        """Create a series with seeded data and ensure it is stored.
+
+        Returns:
+            None: Assertions verify data length.
+        """
         data = [{"time": 1, "value": 100}, {"time": 2, "value": 200}]
         series = SeriesData(series_id="test", series_type="line", data=data)
         assert len(series.data) == 2
 
     def test_get_data_range(self):
-        """Test getting data within a time range."""
+        """Fetch a subset of data bounded by timestamps.
+
+        Returns:
+            None: Assertions check returned values.
+        """
         data = [
             {"time": 1, "value": 100},
             {"time": 2, "value": 200},
@@ -41,7 +57,11 @@ class TestSeriesData:
         assert result[1]["value"] == 300
 
     def test_get_data_chunk_empty(self):
-        """Test getting chunk from empty data."""
+        """Return an empty chunk when the series has no data.
+
+        Returns:
+            None: Assertions ensure flags and counts are zeroed.
+        """
         series = SeriesData(series_id="test", series_type="line")
         chunk = series.get_data_chunk()
         assert chunk["data"] == []
@@ -50,7 +70,11 @@ class TestSeriesData:
         assert chunk["total_available"] == 0
 
     def test_get_data_chunk_small_dataset(self):
-        """Test getting chunk from small dataset returns all data."""
+        """Ensure small datasets are returned fully in a single chunk.
+
+        Returns:
+            None: Assertions check counts and flags.
+        """
         data = [{"time": i, "value": i * 100} for i in range(10)]
         series = SeriesData(series_id="test", series_type="line", data=data)
         chunk = series.get_data_chunk(count=500)
@@ -60,7 +84,11 @@ class TestSeriesData:
         assert chunk["total_available"] == 10
 
     def test_get_data_chunk_large_dataset(self):
-        """Test getting chunk from large dataset."""
+        """Return a limited chunk from a large dataset.
+
+        Returns:
+            None: Assertions verify bounds and paging flags.
+        """
         data = [{"time": i, "value": i * 100} for i in range(1000)]
         series = SeriesData(series_id="test", series_type="line", data=data)
         chunk = series.get_data_chunk(count=500)
@@ -73,7 +101,11 @@ class TestSeriesData:
         assert chunk["data"][-1]["time"] == 999
 
     def test_get_data_chunk_before_time(self):
-        """Test getting chunk before a specific time."""
+        """Fetch a data chunk preceding a specified timestamp.
+
+        Returns:
+            None: Assertions confirm boundaries and flags.
+        """
         data = [{"time": i, "value": i * 100} for i in range(1000)]
         series = SeriesData(series_id="test", series_type="line", data=data)
         chunk = series.get_data_chunk(before_time=500, count=100)
@@ -84,7 +116,11 @@ class TestSeriesData:
         assert chunk["data"][-1]["time"] == 499
 
     def test_get_data_chunk_pagination(self):
-        """Test pagination through chunks."""
+        """Paginate sequentially through multiple data chunks.
+
+        Returns:
+            None: Assertions validate continuity between chunks.
+        """
         data = [{"time": i, "value": i * 100} for i in range(100)]
         series = SeriesData(series_id="test", series_type="line", data=data)
 
@@ -101,22 +137,34 @@ class TestSeriesData:
 
 
 class TestChartState:
-    """Tests for ChartState class."""
+    """Validate pane and series management within ``ChartState``."""
 
     def test_creation(self):
-        """Test basic creation."""
+        """Create a chart state and confirm default values.
+
+        Returns:
+            None: Assertions verify empty panes and options.
+        """
         chart = ChartState(chart_id="test-chart")
         assert chart.chart_id == "test-chart"
         assert chart.panes == {}
         assert chart.options == {}
 
     def test_get_series_not_found(self):
-        """Test getting non-existent series."""
+        """Attempt to get a missing series and expect ``None``.
+
+        Returns:
+            None: Assertions verify missing series handling.
+        """
         chart = ChartState(chart_id="test")
         assert chart.get_series(0, "missing") is None
 
     def test_set_and_get_series(self):
-        """Test setting and getting series."""
+        """Store and retrieve a series within a chart state.
+
+        Returns:
+            None: Assertions validate retrieved data.
+        """
         chart = ChartState(chart_id="test")
         series = SeriesData(series_id="line1", series_type="line")
         chart.set_series(0, "line1", series)
@@ -126,7 +174,11 @@ class TestChartState:
         assert retrieved.series_id == "line1"
 
     def test_multiple_panes(self):
-        """Test series in multiple panes."""
+        """Store series across multiple panes and confirm isolation.
+
+        Returns:
+            None: Assertions ensure pane separation.
+        """
         chart = ChartState(chart_id="test")
         series1 = SeriesData(series_id="main", series_type="candlestick")
         series2 = SeriesData(series_id="volume", series_type="histogram")
@@ -139,7 +191,11 @@ class TestChartState:
         assert chart.get_series(0, "volume") is None
 
     def test_get_all_series_data(self):
-        """Test getting all series data for chart render."""
+        """Aggregate all series data for initial render payloads.
+
+        Returns:
+            None: Assertions verify structure and content.
+        """
         chart = ChartState(chart_id="test")
         data = [{"time": 1, "value": 100}]
         series = SeriesData(
@@ -151,37 +207,62 @@ class TestChartState:
         chart.set_series(0, "line1", series)
 
         result = chart.get_all_series_data()
-        assert "0" in result
-        assert "line1" in result["0"]
-        assert result["0"]["line1"]["seriesType"] == "line"
-        assert result["0"]["line1"]["data"] == data
+        assert 0 in result  # Pane IDs are now integers
+        assert "line1" in result[0]
+        assert result[0]["line1"]["seriesType"] == "line"
+        assert result[0]["line1"]["data"] == data
 
 
 class TestDatafeedService:
-    """Tests for DatafeedService class."""
+    """Validate public behaviors of ``DatafeedService``."""
 
     @pytest.fixture
     def service(self):
-        """Create a fresh DatafeedService for each test."""
+        """Create a fresh ``DatafeedService`` for each test case.
+
+        Returns:
+            DatafeedService: New service instance with empty state.
+        """
         return DatafeedService()
 
     @pytest.mark.asyncio
     async def test_create_chart(self, service):
-        """Test creating a chart."""
+        """Create a chart and confirm options are stored.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions validate chart creation.
+        """
         chart = await service.create_chart("test-chart", {"width": 800})
         assert chart.chart_id == "test-chart"
         assert chart.options == {"width": 800}
 
     @pytest.mark.asyncio
     async def test_create_chart_idempotent(self, service):
-        """Test that creating same chart twice returns same chart."""
+        """Create the same chart twice and ensure idempotency.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions confirm both references point to same chart.
+        """
         chart1 = await service.create_chart("test-chart")
         chart2 = await service.create_chart("test-chart")
         assert chart1.chart_id == chart2.chart_id
 
     @pytest.mark.asyncio
     async def test_get_chart(self, service):
-        """Test getting a chart."""
+        """Retrieve an existing chart from the registry.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions confirm chart retrieval.
+        """
         await service.create_chart("test-chart")
         chart = await service.get_chart("test-chart")
         assert chart is not None
@@ -189,13 +270,27 @@ class TestDatafeedService:
 
     @pytest.mark.asyncio
     async def test_get_chart_not_found(self, service):
-        """Test getting non-existent chart."""
+        """Attempt to retrieve a missing chart and expect ``None``.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions validate missing chart handling.
+        """
         chart = await service.get_chart("missing")
         assert chart is None
 
     @pytest.mark.asyncio
     async def test_set_series_data(self, service):
-        """Test setting series data."""
+        """Set series data on a chart and ensure metadata reflects it.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions confirm stored metadata.
+        """
         data = [{"time": i, "value": i * 100} for i in range(10)]
         series = await service.set_series_data(
             chart_id="test",
@@ -210,7 +305,14 @@ class TestDatafeedService:
 
     @pytest.mark.asyncio
     async def test_get_initial_data_small_dataset(self, service):
-        """Test initial data for small dataset returns all data."""
+        """Return full dataset when under the chunk threshold.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions verify chunking flags.
+        """
         # Small dataset (< 500 points)
         data = [{"time": i, "value": i * 100} for i in range(100)]
         await service.set_series_data(
@@ -228,7 +330,14 @@ class TestDatafeedService:
 
     @pytest.mark.asyncio
     async def test_get_initial_data_large_dataset(self, service):
-        """Test initial data for large dataset returns chunk."""
+        """Chunk data when dataset exceeds threshold.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions check returned chunk.
+        """
         # Large dataset (>= 500 points)
         data = [{"time": i, "value": i * 100} for i in range(1000)]
         await service.set_series_data(
@@ -248,7 +357,14 @@ class TestDatafeedService:
 
     @pytest.mark.asyncio
     async def test_get_initial_data_full_chart(self, service):
-        """Test getting initial data for full chart."""
+        """Return the full chart structure when requesting without series filters.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions validate aggregate payload.
+        """
         data = [{"time": i, "value": i * 100} for i in range(10)]
         await service.set_series_data(
             chart_id="test",
@@ -261,17 +377,38 @@ class TestDatafeedService:
         result = await service.get_initial_data("test")
         assert result["chartId"] == "test"
         assert "panes" in result
-        assert "0" in result["panes"]
+        # Panes is now a list of pane objects with paneId field
+        assert isinstance(result["panes"], list)
+        assert len(result["panes"]) > 0
+        assert result["panes"][0]["paneId"] == 0
 
     @pytest.mark.asyncio
     async def test_get_initial_data_chart_not_found(self, service):
-        """Test initial data for missing chart."""
-        result = await service.get_initial_data("missing")
-        assert "error" in result
+        """Request initial data for a missing chart and expect an exception.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions confirm exception is raised.
+        """
+        from lightweight_charts_pro_backend.exceptions import ChartNotFoundError
+
+        with pytest.raises(ChartNotFoundError) as exc_info:
+            await service.get_initial_data("missing")
+
+        assert exc_info.value.chart_id == "missing"
 
     @pytest.mark.asyncio
     async def test_get_history(self, service):
-        """Test getting historical data."""
+        """Retrieve a historical data chunk for a series.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions verify chunk metadata.
+        """
         data = [{"time": i, "value": i * 100} for i in range(1000)]
         await service.set_series_data(
             chart_id="test",
@@ -295,18 +432,36 @@ class TestDatafeedService:
 
     @pytest.mark.asyncio
     async def test_get_history_chart_not_found(self, service):
-        """Test history for missing chart."""
-        result = await service.get_history(
-            chart_id="missing",
-            pane_id=0,
-            series_id="line1",
-            before_time=500,
-        )
-        assert "error" in result
+        """Request history for a missing chart and expect an exception.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions validate exception is raised.
+        """
+        from lightweight_charts_pro_backend.exceptions import ChartNotFoundError
+
+        with pytest.raises(ChartNotFoundError) as exc_info:
+            await service.get_history(
+                chart_id="missing",
+                pane_id=0,
+                series_id="line1",
+                before_time=500,
+            )
+
+        assert exc_info.value.chart_id == "missing"
 
     @pytest.mark.asyncio
     async def test_subscribe_and_notify(self, service):
-        """Test subscribing to chart updates."""
+        """Subscribe to chart updates and verify notifications trigger.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions confirm callback execution.
+        """
         received_events = []
 
         async def callback(event_type, data):
@@ -332,7 +487,14 @@ class TestDatafeedService:
 
     @pytest.mark.asyncio
     async def test_chunk_size_threshold(self, service):
-        """Test the chunk size threshold constant."""
+        """Validate chunking threshold boundaries.
+
+        Args:
+            service (DatafeedService): Fresh service fixture.
+
+        Returns:
+            None: Assertions validate behavior around threshold edges.
+        """
         assert service.CHUNK_SIZE_THRESHOLD == 500
 
         # Test boundary conditions

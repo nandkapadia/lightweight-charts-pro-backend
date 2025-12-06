@@ -1,17 +1,16 @@
-"""Structured logging configuration for the application.
+"""Structured logging helpers with request correlation support."""
 
-This module sets up JSON-formatted logging for production environments
-with request correlation IDs and contextual information.
-"""
-
+# Standard Imports
 import logging
 import sys
 import uuid
 from contextvars import ContextVar
 from typing import Any
 
+# Third Party Imports
 from pythonjsonlogger import jsonlogger
 
+# Local Imports
 from lightweight_charts_pro_backend.config import Settings
 
 # Context variable for request ID tracking
@@ -19,7 +18,7 @@ request_id_var: ContextVar[str] = ContextVar("request_id", default="")
 
 
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
-    """Custom JSON formatter that adds request context to log records."""
+    """JSON formatter that enriches log records with request context."""
 
     def add_fields(
         self,
@@ -27,12 +26,15 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
         record: logging.LogRecord,
         message_dict: dict[str, Any],
     ) -> None:
-        """Add custom fields to log record.
+        """Augment log records with timestamps, levels, and request IDs.
 
         Args:
-            log_record: Dictionary to add fields to.
-            record: Original log record.
-            message_dict: Dictionary from the log message.
+            log_record (dict[str, Any]): Mutable log dictionary to enrich.
+            record (logging.LogRecord): Original log record emitted by logger.
+            message_dict (dict[str, Any]): Structured message payload if provided.
+
+        Returns:
+            None: The log record dictionary is mutated in place.
         """
         super().add_fields(log_record, record, message_dict)
 
@@ -56,13 +58,13 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
 
 
 def setup_logging(settings: Settings) -> None:
-    """Configure structured logging for the application.
-
-    Sets up JSON logging for production and human-readable logging
-    for development. Configures log levels and formatters.
+    """Configure structured logging based on runtime environment.
 
     Args:
-        settings: Application settings containing log configuration.
+        settings (Settings): Application settings controlling log behavior.
+
+    Returns:
+        None: Logging handlers and formatters are configured globally.
     """
     # Determine log format based on environment
     if settings.is_production:
@@ -110,34 +112,27 @@ def setup_logging(settings: Settings) -> None:
 
 
 def get_logger(name: str) -> logging.Logger:
-    """Get a logger with the specified name.
+    """Return a configured logger by name.
 
     Args:
-        name: Logger name (usually __name__).
+        name (str): Logger name, typically ``__name__`` from the caller.
 
     Returns:
-        logging.Logger: Configured logger instance.
-
-    Example:
-        >>> logger = get_logger(__name__)
-        >>> logger.info("Processing request", extra={"chart_id": "chart1"})
+        logging.Logger: Logger instance honoring the configured handlers.
     """
     return logging.getLogger(name)
 
 
 def set_request_id(request_id: str | None = None) -> str:
-    """Set request ID in context for log correlation.
+    """Store a request ID in context for correlation across log records.
 
     Args:
-        request_id: Optional request ID. If None, generates a new UUID.
+        request_id (str | None): Optional existing request identifier; generates a UUID when ``None``.
 
     Returns:
-        str: The request ID that was set.
-
-    Example:
-        >>> request_id = set_request_id()
-        >>> logger.info("Processing request")  # Will include request_id
+        str: Request identifier that was set in the context.
     """
+    # Generate a UUID when the caller does not provide an ID
     if request_id is None:
         request_id = str(uuid.uuid4())
     request_id_var.set(request_id)
@@ -145,17 +140,18 @@ def set_request_id(request_id: str | None = None) -> str:
 
 
 def get_request_id() -> str:
-    """Get current request ID from context.
+    """Retrieve the current request ID stored in context.
 
     Returns:
-        str: Current request ID or empty string if not set.
+        str: Request identifier or empty string when unset.
     """
     return request_id_var.get()
 
 
 def clear_request_id() -> None:
-    """Clear request ID from context.
+    """Remove any request ID stored in context to avoid leakage across requests.
 
-    Should be called at the end of request processing.
+    Returns:
+        None: This function is executed for its side effects only.
     """
     request_id_var.set("")

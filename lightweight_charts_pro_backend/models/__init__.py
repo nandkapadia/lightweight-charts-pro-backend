@@ -1,19 +1,12 @@
-"""Pydantic models for Lightweight Charts Backend.
+"""Pydantic models used for request and response validation."""
 
-This module exports all Pydantic models used for request and response
-validation in the API endpoints. These models provide:
+# Standard Imports
 
-- Automatic validation of incoming requests
-- Type safety throughout the application
-- Clear API documentation via FastAPI's OpenAPI integration
-- Serialization/deserialization of JSON data
-
-All models follow strict validation rules to ensure data integrity
-and prevent common security issues.
-"""
+# Third Party Imports
 
 # Local Imports
 from lightweight_charts_pro_backend.models.charts import (
+    AppendSeriesDataRequest,
     ChartOptionsRequest,
     GetHistoryRequest,
     SetSeriesDataRequest,
@@ -22,6 +15,7 @@ from lightweight_charts_pro_backend.models.charts import (
 # Public API for this module
 __all__ = [
     "SetSeriesDataRequest",  # Model for setting series data
+    "AppendSeriesDataRequest",  # Model for appending data to existing series
     "GetHistoryRequest",  # Model for requesting historical data chunks
     "ChartOptionsRequest",  # Model for chart configuration options
 ]

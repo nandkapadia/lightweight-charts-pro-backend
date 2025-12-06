@@ -1,28 +1,49 @@
-"""Configuration management using pydantic-settings.
+"""Configuration management utilities backed by pydantic-settings.
 
-This module provides centralized configuration for the application,
-loading settings from environment variables with sensible defaults.
+This module defines the ``Settings`` class for loading environment-driven
+configuration and exposes a cached helper for retrieving those settings across
+the application.
 """
 
+# Standard Imports
 from functools import lru_cache
 from typing import Literal
 
+# Third Party Imports
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Local Imports
 
 
 class Settings(BaseSettings):
     """Application settings loaded from environment variables.
 
-    All settings can be overridden via environment variables.
-    For production deployments, create a .env file or set environment
-    variables directly in your deployment environment.
-
-    Example .env file:
-        DATABASE_URL=postgresql+asyncpg://user:pass@localhost/db
-        SECRET_KEY=your-secret-key-here
-        CORS_ORIGINS=https://example.com,https://app.example.com
-        ENVIRONMENT=production
+    Attributes:
+        app_name (str): Human-readable application name.
+        environment (Literal): Deployment environment selection.
+        debug (bool): Flag to toggle debug-friendly behavior.
+        log_level (Literal): Log level string compatible with ``logging``.
+        host (str): Host address for the ASGI server to bind.
+        port (int): Port number for the ASGI server.
+        cors_origins (str): Comma-separated string of allowed origins.
+        secret_key (str): Secret key for JWT signing.
+        algorithm (str): JWT algorithm identifier.
+        access_token_expire_minutes (int): Minutes until JWT access tokens expire.
+        enable_auth (bool): Toggle authentication requirements.
+        api_key_header (str): Header name expected for API key auth.
+        enable_rate_limiting (bool): Toggle rate limiting middleware.
+        rate_limit_per_minute (int): Allowed requests per minute.
+        rate_limit_history_per_minute (int): Allowed history requests per minute.
+        database_url (str): SQLAlchemy connection string.
+        database_echo (bool): Flag to echo SQL statements for debugging.
+        enable_persistence (bool): Flag to enable database persistence.
+        chart_ttl_hours (int): Hours before chart cleanup when persistence is on.
+        cleanup_interval_minutes (int): Interval to run cleanup jobs.
+        websocket_timeout_seconds (int): Idle timeout for WebSocket connections.
+        websocket_ping_interval_seconds (int): Ping cadence for WebSocket keepalive.
+        enable_metrics (bool): Toggle Prometheus metrics endpoint.
+        metrics_path (str): URL path where metrics are exposed.
     """
 
     model_config = SettingsConfigDict(
@@ -47,17 +68,32 @@ class Settings(BaseSettings):
     port: int = Field(default=8000, ge=1, le=65535, description="Server port")
 
     # CORS Settings
-    cors_origins: str = Field(
+    # Note: Field type is str for environment variable input, but validator returns list[str]
+    # This is a Pydantic pattern for parsing delimited strings
+    cors_origins: str | list[str] = Field(
         default="http://localhost:3000,http://localhost:8501",
-        description="Comma-separated list of allowed CORS origins",
+        description="Comma-separated list of allowed CORS origins (or list)",
     )
 
-    @field_validator("cors_origins")
+    @field_validator("cors_origins", mode="before")
     @classmethod
-    def parse_cors_origins(cls, v: str) -> list[str]:
-        """Parse comma-separated CORS origins into a list."""
+    def parse_cors_origins(cls, v: str | list[str]) -> list[str]:
+        """Parse comma-separated CORS origins into a list format.
+
+        Args:
+            v: Raw comma-separated origins string or pre-parsed list.
+
+        Returns:
+            list[str]: Cleaned list of individual origin strings.
+        """
+        # If already a list, return as-is
+        if isinstance(v, list):
+            return v
+
+        # Skip parsing when string is empty or missing
         if not v:
             return []
+        # Split string by comma and trim whitespace to produce usable list
         return [origin.strip() for origin in v.split(",") if origin.strip()]
 
     # Security Settings
@@ -95,20 +131,18 @@ class Settings(BaseSettings):
         default="sqlite+aiosqlite:///./charts.db",
         description="Database connection URL (SQLAlchemy format)",
     )
-    database_echo: bool = Field(
-        default=False, description="Echo SQL statements (for debugging)"
-    )
+    database_echo: bool = Field(default=False, description="Echo SQL statements (for debugging)")
 
-    # Data Management
+    # Data Management (NOT IMPLEMENTED - All data is currently in-memory only)
     enable_persistence: bool = Field(
         default=False,
-        description="Enable database persistence (False = in-memory only)",
+        description="[NOT IMPLEMENTED] Enable database persistence (currently all data is in-memory only)",
     )
     chart_ttl_hours: int = Field(
-        default=24, ge=1, description="Chart time-to-live in hours before cleanup"
+        default=24, ge=1, description="[NOT IMPLEMENTED] Chart time-to-live in hours before cleanup"
     )
     cleanup_interval_minutes: int = Field(
-        default=60, ge=1, description="Interval for running cleanup tasks"
+        default=60, ge=1, description="[NOT IMPLEMENTED] Interval for running cleanup tasks"
     )
 
     # WebSocket Settings
@@ -119,31 +153,43 @@ class Settings(BaseSettings):
         default=30, ge=5, description="WebSocket ping interval in seconds"
     )
 
-    # Monitoring
-    enable_metrics: bool = Field(
-        default=True, description="Enable Prometheus metrics endpoint"
+    # Data Chunking Settings
+    chunk_size_threshold: int = Field(
+        default=500,
+        ge=100,
+        le=10000,
+        description="Number of data points before chunking is applied (default 500)",
     )
+
+    # Monitoring
+    enable_metrics: bool = Field(default=True, description="Enable Prometheus metrics endpoint")
     metrics_path: str = Field(default="/metrics", description="Prometheus metrics endpoint path")
 
     @property
     def is_production(self) -> bool:
-        """Check if running in production environment."""
+        """Determine whether the app is running in production mode.
+
+        Returns:
+            bool: ``True`` when the ``environment`` is set to ``production``.
+        """
         return self.environment == "production"
 
     @property
     def is_development(self) -> bool:
-        """Check if running in development environment."""
+        """Determine whether the app is running in development mode.
+
+        Returns:
+            bool: ``True`` when the ``environment`` equals ``development``.
+        """
         return self.environment == "development"
 
 
 @lru_cache
 def get_settings() -> Settings:
-    """Get cached settings instance.
-
-    This function is cached to ensure we only load settings once.
-    Use this function instead of instantiating Settings directly.
+    """Return a cached ``Settings`` instance for reuse across the codebase.
 
     Returns:
-        Settings: Cached settings instance.
+        Settings: Singleton-style settings object created on first call.
     """
+    # lru_cache ensures the environment is parsed only once for performance
     return Settings()

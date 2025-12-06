@@ -1,16 +1,8 @@
-"""Services for Lightweight Charts Backend.
+"""Business logic layer for the Lightweight Charts backend."""
 
-This module contains the business logic layer that sits between the API
-endpoints and the data models. Services handle:
+# Standard Imports
 
-- Data management and persistence
-- Business rules and validation
-- Complex operations and workflows
-- Coordination between different components
-
-The service layer ensures separation of concerns and makes the codebase
-easier to test, maintain, and extend.
-"""
+# Third Party Imports
 
 # Local Imports
 from lightweight_charts_pro_backend.services.datafeed import DatafeedService

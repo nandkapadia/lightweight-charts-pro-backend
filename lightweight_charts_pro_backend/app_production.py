@@ -1,10 +1,9 @@
-"""Production-ready FastAPI application with authentication, rate limiting, and monitoring.
+"""Production-ready FastAPI application with authentication and monitoring."""
 
-This module provides an enhanced create_app factory with all production features enabled.
-"""
-
+# Standard Imports
 from contextlib import asynccontextmanager
 
+# Third Party Imports
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -12,6 +11,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
+# Local Imports
 from lightweight_charts_pro_backend.api import chart_router
 from lightweight_charts_pro_backend.config import Settings, get_settings
 from lightweight_charts_pro_backend.database import get_db_manager
@@ -28,16 +28,16 @@ logger = get_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Manage application lifespan events.
-
-    Handles startup and shutdown tasks including database initialization
-    and cleanup of background tasks.
+    """Manage startup and shutdown routines for the FastAPI app.
 
     Args:
-        app: FastAPI application instance.
+        app (FastAPI): FastAPI application instance being started.
 
     Yields:
-        None: Control to the application.
+        None: Control back to FastAPI while the app is running.
+
+    Returns:
+        None: This context manager is used for its side effects.
     """
     # Startup
     settings: Settings = app.state.settings
@@ -78,30 +78,14 @@ def create_app(
     settings: Settings | None = None,
     datafeed: DatafeedService | None = None,
 ) -> FastAPI:
-    """Create production-ready FastAPI application with all features enabled.
-
-    This enhanced factory function includes:
-    - Environment-based configuration
-    - Structured logging with request IDs
-    - Authentication and authorization
-    - Rate limiting
-    - Error handling middleware
-    - Prometheus metrics
-    - Database persistence (optional)
-    - CORS configuration
+    """Build a production-configured FastAPI application.
 
     Args:
-        settings: Optional Settings instance. If None, loads from environment.
-        datafeed: Optional DatafeedService instance for testing.
+        settings (Settings | None): Optional settings instance; falls back to environment.
+        datafeed (DatafeedService | None): Prebuilt datafeed service for dependency injection.
 
     Returns:
-        FastAPI: Fully configured production-ready application.
-
-    Example:
-        >>> from lightweight_charts_pro_backend.app_production import create_app
-        >>> app = create_app()
-        >>> import uvicorn
-        >>> uvicorn.run(app, host="0.0.0.0", port=8000)
+        FastAPI: Application instance with middleware, routers, and monitoring configured.
     """
     # Load settings from environment if not provided
     if settings is None:
@@ -148,7 +132,7 @@ def create_app(
 
     # Initialize datafeed service
     if datafeed is None:
-        datafeed = DatafeedService()
+        datafeed = DatafeedService(chunk_size_threshold=settings.chunk_size_threshold)
     app.state.datafeed = datafeed
 
     # Register routers

@@ -1,23 +1,35 @@
-"""Tests for WebSocket handlers."""
+"""Integration tests for WebSocket connection handling."""
 
+# Standard Imports
+
+# Third Party Imports
 import pytest
 from fastapi.testclient import TestClient
 
+# Local Imports
 from lightweight_charts_pro_backend.app import create_app
 from lightweight_charts_pro_backend.websocket.handlers import ConnectionManager
 
 
 class TestConnectionManager:
-    """Tests for ConnectionManager class."""
+    """Validate connection tracking logic within ``ConnectionManager``."""
 
     def test_creation(self):
-        """Test basic creation."""
+        """Ensure a new manager starts with empty connection tracking.
+
+        Returns:
+            None: Assertions verify initial state.
+        """
         manager = ConnectionManager()
         assert manager._connections == {}
 
     @pytest.mark.asyncio
     async def test_connect_disconnect(self):
-        """Test connect and disconnect flow."""
+        """Connect and disconnect a WebSocket while tracking state.
+
+        Returns:
+            None: Assertions validate connection bookkeeping.
+        """
         manager = ConnectionManager()
 
         # Mock websocket
@@ -38,7 +50,11 @@ class TestConnectionManager:
 
     @pytest.mark.asyncio
     async def test_multiple_connections_same_chart(self):
-        """Test multiple connections to the same chart."""
+        """Track multiple simultaneous connections to the same chart.
+
+        Returns:
+            None: Assertions validate connection counts per chart.
+        """
         manager = ConnectionManager()
 
         class MockWebSocket:
@@ -61,7 +77,11 @@ class TestConnectionManager:
 
     @pytest.mark.asyncio
     async def test_broadcast(self):
-        """Test broadcasting to all connections."""
+        """Broadcast a message to all connected sockets for a chart.
+
+        Returns:
+            None: Assertions ensure each client receives the payload.
+        """
         manager = ConnectionManager()
 
         received_messages = []
@@ -86,7 +106,11 @@ class TestConnectionManager:
 
     @pytest.mark.asyncio
     async def test_broadcast_removes_disconnected(self):
-        """Test that broadcast removes disconnected clients."""
+        """Ensure broadcast removes connections that raise errors.
+
+        Returns:
+            None: Assertions validate connection cleanup.
+        """
         manager = ConnectionManager()
 
         class GoodWebSocket:
@@ -120,23 +144,38 @@ class TestConnectionManager:
 
     @pytest.mark.asyncio
     async def test_broadcast_no_connections(self):
-        """Test broadcasting when no connections exist."""
+        """Broadcast gracefully when no connections are registered.
+
+        Returns:
+            None: Assertions confirm no exceptions are raised.
+        """
         manager = ConnectionManager()
         # Should not raise
         await manager.broadcast("chart1", {"type": "test"})
 
 
 class TestWebSocketEndpoint:
-    """Tests for WebSocket endpoint."""
+    """Exercise WebSocket endpoint behavior through TestClient."""
 
     @pytest.fixture
     def client(self):
-        """Create a test client."""
+        """Create a FastAPI test client with WebSocket support.
+
+        Returns:
+            TestClient: Client configured for websocket connections.
+        """
         app = create_app()
         return TestClient(app)
 
     def test_websocket_connect(self, client):
-        """Test WebSocket connection."""
+        """Connect to the WebSocket and receive an acknowledgment.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate acknowledgment payload.
+        """
         with client.websocket_connect("/ws/charts/test-chart") as websocket:
             # Should receive connection acknowledgment
             data = websocket.receive_json()
@@ -144,7 +183,14 @@ class TestWebSocketEndpoint:
             assert data["chartId"] == "test-chart"
 
     def test_websocket_ping_pong(self, client):
-        """Test ping/pong for connection health."""
+        """Exchange ping/pong messages to confirm connection health.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions verify ping/pong handshake.
+        """
         with client.websocket_connect("/ws/charts/test-chart") as websocket:
             # Skip connection message
             websocket.receive_json()
@@ -157,7 +203,14 @@ class TestWebSocketEndpoint:
             assert data["type"] == "pong"
 
     def test_websocket_get_initial_data(self, client):
-        """Test requesting initial data via WebSocket."""
+        """Request initial series data via WebSocket message.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate returned payload structure.
+        """
         # First, set up some data via REST API
         client.post("/api/charts/test-chart")
         client.post(
@@ -189,7 +242,14 @@ class TestWebSocketEndpoint:
             assert data["chartId"] == "test-chart"
 
     def test_websocket_request_history(self, client):
-        """Test requesting history via WebSocket."""
+        """Request historical data over WebSocket and verify response.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions confirm correct response fields.
+        """
         # Set up data
         client.post("/api/charts/test-chart")
         client.post(
@@ -223,7 +283,14 @@ class TestWebSocketEndpoint:
             assert data["seriesId"] == "line1"
 
     def test_multiple_websocket_connections(self, client):
-        """Test multiple WebSocket connections to same chart."""
+        """Open multiple WebSocket connections to the same chart ID.
+
+        Args:
+            client (TestClient): Configured FastAPI test client.
+
+        Returns:
+            None: Assertions validate both connections respond to ping.
+        """
         with client.websocket_connect("/ws/charts/test-chart") as ws1:
             ws1.receive_json()  # connection ack
 

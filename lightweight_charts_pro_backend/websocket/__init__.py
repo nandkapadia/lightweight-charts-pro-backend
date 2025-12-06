@@ -1,17 +1,8 @@
-"""WebSocket handlers for Lightweight Charts Backend.
+"""WebSocket router for real-time chart updates and history retrieval."""
 
-This module provides real-time bidirectional communication between the
-backend and frontend clients via WebSocket connections. Features include:
+# Standard Imports
 
-- Real-time data updates pushed to clients
-- Historical data requests from clients
-- Connection management and heartbeat
-- Automatic reconnection handling
-- Broadcasting to multiple connected clients
-
-WebSocket connections enable live chart updates without polling,
-reducing server load and improving user experience.
-"""
+# Third Party Imports
 
 # Local Imports
 from lightweight_charts_pro_backend.websocket.handlers import router as websocket_router

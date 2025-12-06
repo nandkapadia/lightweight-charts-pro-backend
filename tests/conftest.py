@@ -1,17 +1,30 @@
-"""Pytest configuration and fixtures for backend tests."""
+"""Pytest configuration and reusable fixtures for backend tests."""
 
+# Standard Imports
+
+# Third Party Imports
 import pytest
+
+# Local Imports
 
 
 @pytest.fixture
 def sample_line_data():
-    """Sample line chart data."""
+    """Provide sample line series data.
+
+    Returns:
+        list[dict[str, int]]: Generated line data points.
+    """
     return [{"time": i, "value": i * 100} for i in range(100)]
 
 
 @pytest.fixture
 def sample_candlestick_data():
-    """Sample candlestick chart data."""
+    """Provide sample candlestick series data.
+
+    Returns:
+        list[dict[str, int]]: Generated candlestick OHLC data.
+    """
     return [
         {
             "time": i,
@@ -26,11 +39,19 @@ def sample_candlestick_data():
 
 @pytest.fixture
 def large_dataset():
-    """Large dataset for testing chunking (> 500 points)."""
+    """Provide a large dataset for chunking tests.
+
+    Returns:
+        list[dict[str, int]]: Large collection of line data points.
+    """
     return [{"time": i, "value": i * 100} for i in range(1000)]
 
 
 @pytest.fixture
 def small_dataset():
-    """Small dataset for testing non-chunking (< 500 points)."""
+    """Provide a small dataset that should not be chunked.
+
+    Returns:
+        list[dict[str, int]]: Compact line dataset below chunk threshold.
+    """
     return [{"time": i, "value": i * 100} for i in range(100)]

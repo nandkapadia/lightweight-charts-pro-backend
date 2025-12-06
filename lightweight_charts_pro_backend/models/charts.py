@@ -12,6 +12,8 @@ from typing import Any
 # Third Party Imports
 from pydantic import BaseModel, Field, field_validator
 
+# Local Imports
+
 
 class SetSeriesDataRequest(BaseModel):
     """Request model for setting series data on a chart.
@@ -62,21 +64,13 @@ class SetSeriesDataRequest(BaseModel):
     @field_validator("series_type")
     @classmethod
     def validate_series_type(cls, v: str) -> str:
-        """Validate series type is a known type.
-
-        This validator checks if the provided series type is one of the
-        standard TradingView Lightweight Charts series types. Unknown types
-        are allowed for extensibility (custom series implementations).
+        """Validate series type against known Lightweight Charts types.
 
         Args:
-            v: The series type string to validate.
+            v (str): Series type string provided by the client.
 
         Returns:
-            str: The validated series type (unchanged).
-
-        Note:
-            This validator currently allows all types for extensibility.
-            Future versions may add warnings for unknown types.
+            str: The original series type value to preserve casing and content.
         """
         # Define the standard TradingView Lightweight Charts series types
         valid_types = {"line", "area", "bar", "candlestick", "histogram", "baseline"}
@@ -88,6 +82,39 @@ class SetSeriesDataRequest(BaseModel):
             pass
 
         return v
+
+
+class AppendSeriesDataRequest(BaseModel):
+    """Request model for appending data points to an existing series.
+
+    This model validates incoming requests to append new data to an existing
+    series. Unlike SetSeriesDataRequest, this does NOT include series_type or
+    options fields since those are set during initial series creation and should
+    not be modified during append operations.
+
+    Attributes:
+        pane_id: Pane index where the series is located.
+            Defaults to 0 (main pane). Must match the pane_id from initial creation.
+        data: List of new data points to append. Each data point must have a
+            'time' field with a timestamp greater than or equal to the last
+            existing timestamp to maintain monotonic ordering and prevent
+            lookahead bias in backtesting scenarios.
+
+    Example:
+        >>> request = AppendSeriesDataRequest(
+        ...     pane_id=0,
+        ...     data=[
+        ...         {"time": 1609632000, "open": 107, "high": 110, "low": 106, "close": 109},
+        ...         {"time": 1609718400, "open": 109, "high": 112, "low": 108, "close": 111}
+        ...     ]
+        ... )
+    """
+
+    # Pane index - default to main pane (0), must be non-negative
+    pane_id: int = Field(default=0, ge=0, description="Pane index")
+
+    # Data points - required field containing the new data to append
+    data: list[dict[str, Any]] = Field(..., description="New data points to append")
 
 
 class GetHistoryRequest(BaseModel):

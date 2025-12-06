@@ -1,31 +1,43 @@
-"""Database models and session management using SQLAlchemy.
+"""Async database models and session management for chart persistence.
 
-This module provides async database support with SQLAlchemy for persisting
-chart data, series data, and managing chart lifecycle.
+This module defines SQLAlchemy ORM models for charts and series data and
+provides helpers to create async database sessions used throughout the
+application.
+
+IMPORTANT: These database models are currently NOT used by the DatafeedService.
+All chart data is stored in-memory only. These models are provided as a foundation
+for future persistence implementation. To enable persistence:
+1. Wire DatabaseManager into DatafeedService
+2. Implement save/load methods in DatafeedService
+3. Add TTL-based cleanup logic
+4. Consider using the two-tier storage architecture (hot cache + cold DB)
+
+For production use with large datasets (multi-million bars), consider:
+- TimescaleDB for time-series optimized storage
+- Parquet files + DuckDB for columnar storage
+- Arrow + memory-mapped files for zero-copy reads
 """
 
+# Standard Imports
 import json
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import JSON, DateTime, Integer, String, Text, func
+# Third Party Imports
+from sqlalchemy import JSON, DateTime, Index, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+# Local Imports
 from lightweight_charts_pro_backend.config import Settings
 
 
 class Base(DeclarativeBase):
     """Base class for all database models."""
 
-    pass
-
 
 class ChartModel(Base):
-    """Database model for chart metadata and options.
-
-    Stores chart-level configuration and tracks chart lifecycle.
-    """
+    """Database model for chart metadata and options."""
 
     __tablename__ = "charts"
 
@@ -43,17 +55,26 @@ class ChartModel(Base):
     )
 
     def __repr__(self) -> str:
-        """String representation of chart model."""
+        """Provide a readable string representation for debugging.
+
+        Returns:
+            str: Rendered model details including ID and chart identifier.
+        """
         return f"<ChartModel(id={self.id}, chart_id='{self.chart_id}')>"
 
 
 class SeriesModel(Base):
-    """Database model for series data.
-
-    Stores individual series data points with efficient JSON storage.
-    """
+    """Database model for series data using JSON storage."""
 
     __tablename__ = "series"
+    __table_args__ = (
+        # Add uniqueness constraint to prevent duplicate series
+        # This ensures data integrity in multi-tenant environments
+        UniqueConstraint("chart_id", "pane_id", "series_id", name="uix_chart_pane_series"),
+        # Add composite index for faster lookups by chart_id + pane_id
+        Index("ix_chart_pane", "chart_id", "pane_id"),
+        {"extend_existing": True},
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     chart_id: Mapped[str] = mapped_column(String(128), index=True, nullable=False)
@@ -70,7 +91,11 @@ class SeriesModel(Base):
     )
 
     def __repr__(self) -> str:
-        """String representation of series model."""
+        """Provide a readable string representation for debugging.
+
+        Returns:
+            str: Rendered model details including identifiers for tracing.
+        """
         return (
             f"<SeriesModel(id={self.id}, chart_id='{self.chart_id}', "
             f"pane_id={self.pane_id}, series_id='{self.series_id}')>"
@@ -78,36 +103,54 @@ class SeriesModel(Base):
 
     @property
     def data_list(self) -> list[dict[str, Any]]:
-        """Parse JSON data string into list."""
+        """Parse the stored JSON string into a Python list.
+
+        Returns:
+            list[dict[str, Any]]: Deserialized series payload.
+        """
+        # Convert persisted JSON text back into Python objects for use
         return json.loads(self.data) if self.data else []
 
     @data_list.setter
     def data_list(self, value: list[dict[str, Any]]) -> None:
-        """Serialize list to JSON string."""
+        """Serialize a Python list into the JSON text column.
+
+        Args:
+            value (list[dict[str, Any]]): Series payload to persist.
+
+        Returns:
+            None: The serialized JSON string is stored on the model.
+        """
+        # Store JSON as text to support large payloads without ORM type issues
         self.data = json.dumps(value)
 
 
 class DatabaseManager:
-    """Manages database connections and provides async session factory.
-
-    This class handles database initialization, connection pooling,
-    and provides async context managers for database sessions.
-    """
+    """Manage database connections and provide an async session factory."""
 
     def __init__(self, settings: Settings):
-        """Initialize database manager with settings.
+        """Initialize database engine and session factory.
 
         Args:
-            settings: Application settings containing database configuration.
+            settings (Settings): Application settings containing database configuration.
+
+        Returns:
+            None: Engine and session factory are prepared for use.
         """
+        # Persist settings for use across helper methods
         self.settings = settings
+        # Create async SQLAlchemy engine with pooling and connection health checks
+        # Pool size increased for multi-tenant concurrent backtest load
         self.engine = create_async_engine(
             settings.database_url,
             echo=settings.database_echo,
             pool_pre_ping=True,  # Verify connections before using
-            pool_size=5,  # Connection pool size
-            max_overflow=10,  # Allow up to 15 total connections
+            pool_size=20,  # Base connection pool size (increased from 5 for multi-tenant)
+            max_overflow=30,  # Allow up to 50 total connections (increased from 15)
+            pool_timeout=30,  # Timeout for acquiring connection (prevent indefinite waits)
+            pool_recycle=3600,  # Recycle connections after 1 hour to prevent stale connections
         )
+        # Build session factory to create lightweight AsyncSession instances
         self.session_factory = async_sessionmaker(
             self.engine,
             class_=AsyncSession,
@@ -115,40 +158,41 @@ class DatabaseManager:
         )
 
     async def create_tables(self) -> None:
-        """Create all database tables.
+        """Create all ORM tables if they do not already exist.
 
-        This should be called during application startup to ensure
-        all tables exist. Safe to call multiple times (idempotent).
+        Returns:
+            None: Tables are created within the configured database.
         """
+        # Use a transaction-bound connection to run synchronous DDL in async context
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
 
     async def drop_tables(self) -> None:
-        """Drop all database tables.
+        """Drop all ORM tables (destructive).
 
-        WARNING: This will delete all data. Only use for testing or cleanup.
+        Returns:
+            None: Tables are removed from the configured database.
         """
+        # Dangerous operation intended for tests or manual cleanup
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.drop_all)
 
     async def close(self) -> None:
-        """Close database connections and cleanup resources.
+        """Dispose the engine and release connection pool resources.
 
-        Should be called during application shutdown.
+        Returns:
+            None: All pooled connections are closed.
         """
+        # Ensure background connections are closed during application shutdown
         await self.engine.dispose()
 
     def get_session(self) -> AsyncSession:
-        """Get a new async database session.
+        """Create a new async database session instance.
 
         Returns:
-            AsyncSession: New database session for queries.
-
-        Example:
-            >>> async with db_manager.get_session() as session:
-            ...     result = await session.execute(select(ChartModel))
-            ...     charts = result.scalars().all()
+            AsyncSession: Session object for executing queries.
         """
+        # Instantiate a fresh session; caller manages its lifecycle
         return self.session_factory()
 
 
@@ -157,17 +201,16 @@ _db_manager: DatabaseManager | None = None
 
 
 def get_db_manager(settings: Settings | None = None) -> DatabaseManager:
-    """Get or create the global database manager instance.
+    """Return a shared ``DatabaseManager`` instance.
 
     Args:
-        settings: Optional settings to initialize database manager.
-            Required on first call, ignored on subsequent calls.
+        settings (Settings | None): Settings used to initialize the manager on first call.
 
     Returns:
-        DatabaseManager: Global database manager instance.
+        DatabaseManager: Singleton-style database manager.
 
     Raises:
-        ValueError: If called without settings before initialization.
+        ValueError: If ``settings`` is omitted before initial initialization.
     """
     global _db_manager
 
@@ -180,18 +223,14 @@ def get_db_manager(settings: Settings | None = None) -> DatabaseManager:
 
 
 async def get_session() -> AsyncSession:
-    """Dependency injection helper for FastAPI routes.
+    """Provide a database session for FastAPI dependency injection.
 
     Yields:
-        AsyncSession: Database session for the request.
-
-    Example:
-        >>> @app.get("/charts")
-        ... async def get_charts(session: AsyncSession = Depends(get_session)):
-        ...     result = await session.execute(select(ChartModel))
-        ...     return result.scalars().all()
+        AsyncSession: Database session scoped to the request lifecycle.
     """
+    # Lazily create or retrieve the shared database manager
     db_manager = get_db_manager()
+    # Open a session for the caller and guarantee cleanup when done
     async with db_manager.get_session() as session:
         try:
             yield session
