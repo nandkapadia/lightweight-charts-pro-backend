@@ -1,6 +1,7 @@
 """Tests for DatafeedService."""
 
 import pytest
+
 from lightweight_charts_pro_backend.services.datafeed import (
     ChartState,
     DatafeedService,
@@ -327,7 +328,7 @@ class TestDatafeedService:
         assert received_events[0][0] == "data_update"
 
         # Unsubscribe
-        unsubscribe()
+        await unsubscribe()
 
     @pytest.mark.asyncio
     async def test_chunk_size_threshold(self, service):

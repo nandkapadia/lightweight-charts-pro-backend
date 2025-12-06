@@ -191,7 +191,21 @@ class DatafeedService:
         """Initialize the datafeed service."""
         self._charts: dict[str, ChartState] = {}
         self._subscribers: dict[str, list[Callable]] = {}
-        self._lock = asyncio.Lock()
+        self._lock = asyncio.Lock()  # Only for charts dict access
+        self._chart_locks: dict[str, asyncio.Lock] = {}  # Per-chart locks
+
+    def _get_chart_lock(self, chart_id: str) -> asyncio.Lock:
+        """Get or create a lock for a specific chart.
+
+        Args:
+            chart_id: Chart identifier.
+
+        Returns:
+            asyncio.Lock: Lock for the chart.
+        """
+        if chart_id not in self._chart_locks:
+            self._chart_locks[chart_id] = asyncio.Lock()
+        return self._chart_locks[chart_id]
 
     async def get_chart(self, chart_id: str) -> ChartState | None:
         """Get chart state by ID."""

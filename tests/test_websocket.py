@@ -2,6 +2,7 @@
 
 import pytest
 from fastapi.testclient import TestClient
+
 from lightweight_charts_pro_backend.app import create_app
 from lightweight_charts_pro_backend.websocket.handlers import ConnectionManager
 
@@ -32,7 +33,7 @@ class TestConnectionManager:
         assert "chart1" in manager._connections
         assert ws in manager._connections["chart1"]
 
-        manager.disconnect("chart1", ws)
+        await manager.disconnect("chart1", ws)
         assert "chart1" not in manager._connections
 
     @pytest.mark.asyncio
@@ -52,10 +53,10 @@ class TestConnectionManager:
 
         assert len(manager._connections["chart1"]) == 2
 
-        manager.disconnect("chart1", ws1)
+        await manager.disconnect("chart1", ws1)
         assert len(manager._connections["chart1"]) == 1
 
-        manager.disconnect("chart1", ws2)
+        await manager.disconnect("chart1", ws2)
         assert "chart1" not in manager._connections
 
     @pytest.mark.asyncio

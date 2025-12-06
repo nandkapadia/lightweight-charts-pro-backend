@@ -4,6 +4,7 @@ import asyncio
 import json
 import logging
 import re
+import time
 from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
@@ -137,10 +138,17 @@ class ConnectionManager:
     race conditions during concurrent connect/disconnect operations.
     """
 
-    def __init__(self):
-        """Initialize connection manager."""
+    def __init__(self, timeout_seconds: int = 300):
+        """Initialize connection manager.
+
+        Args:
+            timeout_seconds: Connection timeout in seconds (default: 5 minutes).
+        """
         self._connections: dict[str, set[WebSocket]] = {}
+        self._connection_times: dict[tuple[str, int], float] = {}  # (chart_id, ws_id) -> timestamp
         self._lock = asyncio.Lock()
+        self._timeout_seconds = timeout_seconds
+        self._cleanup_task: asyncio.Task | None = None
 
     async def connect(self, chart_id: str, websocket: WebSocket) -> None:
         """Accept and track a WebSocket connection.
@@ -154,6 +162,12 @@ class ConnectionManager:
             if chart_id not in self._connections:
                 self._connections[chart_id] = set()
             self._connections[chart_id].add(websocket)
+            # Track connection time for timeout cleanup
+            self._connection_times[(chart_id, id(websocket))] = time.time()
+
+        # Start cleanup task if not already running
+        if self._cleanup_task is None or self._cleanup_task.done():
+            self._cleanup_task = asyncio.create_task(self._cleanup_stale_connections())
 
     async def disconnect(self, chart_id: str, websocket: WebSocket) -> None:
         """Remove a WebSocket connection.
@@ -167,6 +181,8 @@ class ConnectionManager:
                 self._connections[chart_id].discard(websocket)
                 if not self._connections[chart_id]:
                     del self._connections[chart_id]
+            # Clean up connection time tracking
+            self._connection_times.pop((chart_id, id(websocket)), None)
 
     async def broadcast(self, chart_id: str, message: dict) -> None:
         """Broadcast message to all connections for a chart.
@@ -200,6 +216,47 @@ class ConnectionManager:
                 for websocket in disconnected:
                     if chart_id in self._connections:
                         self._connections[chart_id].discard(websocket)
+                    # Clean up connection time tracking
+                    self._connection_times.pop((chart_id, id(websocket)), None)
+
+    async def _cleanup_stale_connections(self) -> None:
+        """Background task to cleanup stale WebSocket connections.
+
+        Periodically checks for connections that haven't received activity
+        within the timeout period and closes them.
+        """
+        while True:
+            try:
+                await asyncio.sleep(60)  # Check every minute
+                current_time = time.time()
+                stale_connections = []
+
+                async with self._lock:
+                    # Find stale connections
+                    for (chart_id, ws_id), connect_time in list(self._connection_times.items()):
+                        if current_time - connect_time > self._timeout_seconds:
+                            # Find the websocket object
+                            if chart_id in self._connections:
+                                for ws in self._connections[chart_id]:
+                                    if id(ws) == ws_id:
+                                        stale_connections.append((chart_id, ws))
+                                        break
+
+                # Close stale connections outside the lock
+                for chart_id, websocket in stale_connections:
+                    try:
+                        await websocket.close(code=1000, reason="Connection timeout")
+                        logger.info(f"Closed stale WebSocket connection for chart {chart_id}")
+                    except Exception as e:
+                        logger.warning(f"Error closing stale connection: {e}")
+                    finally:
+                        await self.disconnect(chart_id, websocket)
+
+            except asyncio.CancelledError:
+                logger.info("Cleanup task cancelled")
+                break
+            except Exception as e:
+                logger.error(f"Error in cleanup task: {e}", exc_info=True)
 
 
 manager = ConnectionManager()
